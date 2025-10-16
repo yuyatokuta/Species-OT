@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "speciesot"
+version = "0.1.0"
+description = "Still in development."
+authors = ["Yuya Tokuta"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.19"
+jupyter-black = "0.4.0"
+scanpy = "1.10.3"
+plotly = "5.24.1"
+screcode = "1.0.0"
+polars = "1.15.0"
+nbformat = "5.10.4"
+ott-jax = "0.4.9"
+pyarrow = "18.0.0"
+
+# Base JAX dependency
+jax = [
+    { version = "0.4.26", markers = "sys_platform == 'darwin'" },
+    { version = "0.4.26", extras = ["cuda12"], markers = "sys_platform == 'linux'" }
+]
+
+# Optional dependency for Metal on macOS
+jax-metal = { version = "0.1.0", markers = "sys_platform == 'darwin'" }
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

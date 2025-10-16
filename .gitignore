@@ -1,0 +1,51 @@
+# --- Python basics ---
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+
+# --- Virtual envs ---
+.env
+.venv
+env/
+venv/
+ENV/
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+
+# --- Tools / caches ---
+.cache/
+.mypy_cache/
+.pytest_cache/
+.pytype/
+.coverage*
+htmlcov/
+
+# --- Editors/IDE ---
+.vscode/
+.idea/
+.python-version
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Sphinx docs (build artifacts) ---
+docs/_build/
+docs/_doctrees/
+docs/_autosummary/
+
+# --- Static files that are generated ---
+!docs/_static/
+
+# --- Misc ---
+tmp/
+data/
