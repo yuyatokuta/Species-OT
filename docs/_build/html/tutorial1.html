@@ -1,0 +1,1390 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dataset 1 &mdash; speciesot  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataset 2" href="tutorial2.html" />
+    <link rel="prev" title="speciesot" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            speciesot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">README</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">speciesot</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Section-1.-Initial-setup">Section 1. Initial setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Set-constants">Set constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Section-2.-Data-preparation">Section 2. Data preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Read-CSV-file">Read CSV file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Reduce-noise-and-normalize-data">Reduce noise and normalize data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Limit-the-genes-to-be-analyzed-to-transcription-factors">Limit the genes to be analyzed to transcription factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Section-3.-Each-step-of-the-process">Section 3. Each step of the process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Masking-and-preprocessing">Masking and preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-transcriptome-distribution">Calculate transcriptome distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-gene-wise-distance-matrix">Plot gene-wise distance matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Gromov-Wasserstein-Optimal-Transport">Gromov-Wasserstein Optimal Transport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Calculate-normalized-OTP-(gene-to-gene-correspondence-rate)">Calculate normalized OTP (gene-to-gene correspondence rate)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Transcriptomic-discrepancy">Transcriptomic discrepancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Gene-to-gene-Corespondence">Gene-to-gene Corespondence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Summarize-results-in-Dashboard">Summarize results in Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Confirmation-of-expression-levels-of-target-genes-and-corresponding-genes">Confirmation of expression levels of target genes and corresponding genes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Section-4.-Visualization">Section 4. Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Check-gene-expression-level">Check gene expression level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-the-distribution-of-gene-expression-levels">Plot the distribution of gene expression levels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-data-size-after-preprocessing">Check data size after preprocessing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-which-genes-remained-after-preprocessing">Plot which genes remained after preprocessing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-calculated-GW-distance-and-OTP">Check calculated GW distance and OTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-OTP-after-thresholding-the-top-5%">Plot OTP after thresholding the top 5%</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creat-heatmap-of-common-genes-between-species">Creat heatmap of common genes between species</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-the-distribution-of-the-values-of-the-normalized-OTP">Check the distribution of the values of the normalized OTP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Section-5.-Chained-Processing">Section 5. Chained Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#End">End</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Dataset 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial3.html">Dataset custom</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">speciesot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Dataset 1</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial1.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Dataset-1">
+<h1>Dataset 1<a class="headerlink" href="#Dataset-1" title="Link to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_option</span> <span class="o">=</span> <span class="s2">&quot;dataset1&quot;</span>
+<span class="c1"># data_option = &quot;dataset2&quot;</span>
+<span class="c1"># data_option = &quot;custom&quot;</span>
+</pre></div>
+</div>
+</div>
+<section id="Section-1.-Initial-setup">
+<h2>Section 1. Initial setup<a class="headerlink" href="#Section-1.-Initial-setup" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">speciesot</span><span class="w"> </span><span class="kn">import</span> <span class="n">configure_platform</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">SpeciesOT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">configure_platform</span><span class="p">()</span>
+<span class="c1"># configure_platform(&quot;gpu&quot;)</span>
+<span class="c1"># configure_platform(&quot;cpu&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+JAX is configured to use: METAL
+</pre></div></div>
+</div>
+<section id="Parameters">
+<h3>Parameters<a class="headerlink" href="#Parameters" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+    <span class="n">mask_option</span> <span class="o">=</span> <span class="s2">&quot;one_time_point_data&quot;</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.4</span>
+    <span class="n">threshold_surer</span> <span class="o">=</span> <span class="mf">2.5</span>
+    <span class="n">high_epsilon</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">mask_option</span> <span class="o">=</span> <span class="s2">&quot;one_time_point_data&quot;</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.4</span>
+    <span class="n">threshold_surer</span> <span class="o">=</span> <span class="mf">2.5</span>
+    <span class="n">high_epsilon</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">mask_option</span> <span class="o">=</span> <span class="s2">&quot;time_series_data&quot;</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">3.0</span>
+    <span class="n">threshold_surer</span> <span class="o">=</span> <span class="mf">3.5</span>
+    <span class="n">high_epsilon</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Check data_option.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">threshold_eps</span> <span class="o">=</span> <span class="mf">1e-4</span>
+<span class="n">low_epsilon</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">threshold_tol</span> <span class="o">=</span> <span class="mf">3.0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;macaque&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">]</span>
+    <span class="n">species_pairs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># overwrite later</span>
+    <span class="n">species_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Human&quot;</span><span class="p">,</span> <span class="s2">&quot;Macaque&quot;</span><span class="p">,</span> <span class="s2">&quot;Mouse&quot;</span><span class="p">]</span>
+
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;chimpanzee&quot;</span><span class="p">,</span> <span class="s2">&quot;gorilla&quot;</span><span class="p">,</span> <span class="s2">&quot;orangutan&quot;</span><span class="p">,</span> <span class="s2">&quot;macaque&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">]</span>
+    <span class="n">species_pairs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># overwrite later</span>
+    <span class="n">species_labels</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Human_iPSC(AK02)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Chimp_iPSC(AK02)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gorilla_iPSC(AITS)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Orang_iPSC(AITS)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Macaque_ESC(AITS)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mouse_EpiLC&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;animal1&quot;</span><span class="p">,</span> <span class="s2">&quot;animal2&quot;</span><span class="p">,</span> <span class="s2">&quot;animal3&quot;</span><span class="p">]</span>
+    <span class="n">species_pairs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># overwrite later</span>
+    <span class="n">species_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Animal1&quot;</span><span class="p">,</span> <span class="s2">&quot;Animal2&quot;</span><span class="p">,</span> <span class="s2">&quot;Animal3&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-constants">
+<h3>Set constants<a class="headerlink" href="#Set-constants" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mouse_option</span></code> : When <code class="docutils literal notranslate"><span class="pre">data_option</span> <span class="pre">=</span> <span class="pre">“fujiwara”</span></code>, <code class="docutils literal notranslate"><span class="pre">“mESC#1”</span></code> and <code class="docutils literal notranslate"><span class="pre">“mESC#2”</span></code> disappear (<code class="docutils literal notranslate"><span class="pre">‘drop’</span></code>). Only <code class="docutils literal notranslate"><span class="pre">“drop”</span></code> exists.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gene_option</span></code> : Whether to restrict the analysis to only genes common to all species (<code class="docutils literal notranslate"><span class="pre">“intersection”</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">“distinct”</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threshold_option</span></code> : Whether the threshold for masking in the “preprocessing” process should be automatically adjusted (<code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>) or fixed to the value of <code class="docutils literal notranslate"><span class="pre">threshold_surer</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;manual&quot;</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metric_option</span></code> : Whether the distance matrix between genes is calculated using Euclidean distance (<code class="docutils literal notranslate"><span class="pre">&quot;euclidean&quot;</span></code>) or after weighting the genes (<code class="docutils literal notranslate"><span class="pre">&quot;weighted&quot;</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dismat_option</span></code> : Whether to use principal component analyzed data (<code class="docutils literal notranslate"><span class="pre">&quot;pca&quot;</span></code>) or original data (<code class="docutils literal notranslate"><span class="pre">&quot;original&quot;</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gwot_option</span></code> : Whether to use the smallest hyperparameter epsilon (<code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>) or only the initial value (<code class="docutils literal notranslate"><span class="pre">&quot;fixed&quot;</span></code>) when performing gromov-wasserstein ot calculations</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
+        <span class="n">data_option</span><span class="o">=</span><span class="s2">&quot;custom&quot;</span><span class="p">,</span>
+        <span class="n">mouse_option</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+        <span class="n">gene_option</span><span class="o">=</span><span class="s2">&quot;distinct&quot;</span><span class="p">,</span>
+        <span class="n">threshold_option</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="n">metric_option</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+        <span class="n">dismat_option</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">,</span>
+        <span class="n">gwot_option</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+        <span class="n">mask_option</span><span class="o">=</span><span class="n">mask_option</span><span class="p">,</span>
+        <span class="n">iterations</span><span class="o">=</span><span class="n">iterations</span><span class="p">,</span>
+        <span class="n">threshold_eps</span><span class="o">=</span><span class="n">threshold_eps</span><span class="p">,</span>
+        <span class="n">low_epsilon</span><span class="o">=</span><span class="n">low_epsilon</span><span class="p">,</span>
+        <span class="n">high_epsilon</span><span class="o">=</span><span class="n">high_epsilon</span><span class="p">,</span>
+        <span class="n">threshold_tol</span><span class="o">=</span><span class="n">threshold_tol</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">threshold_surer</span><span class="o">=</span><span class="n">threshold_surer</span><span class="p">,</span>
+        <span class="n">species</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+        <span class="n">species_pairs</span><span class="o">=</span><span class="n">species_pairs</span><span class="p">,</span>
+        <span class="n">species_labels</span><span class="o">=</span><span class="n">species_labels</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
+        <span class="s2">&quot;dataset2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;distinct&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;original&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+        <span class="n">mask_option</span><span class="p">,</span>
+        <span class="n">iterations</span><span class="p">,</span>
+        <span class="n">threshold_eps</span><span class="p">,</span>
+        <span class="n">low_epsilon</span><span class="p">,</span>
+        <span class="n">high_epsilon</span><span class="p">,</span>
+        <span class="n">threshold_tol</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="p">,</span>
+        <span class="n">threshold_surer</span><span class="p">,</span>
+        <span class="n">species</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+        <span class="n">species_pairs</span><span class="o">=</span><span class="n">species_pairs</span><span class="p">,</span>
+        <span class="n">species_labels</span><span class="o">=</span><span class="n">species_labels</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
+        <span class="s2">&quot;dataset1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;distinct&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;original&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+        <span class="n">mask_option</span><span class="p">,</span>
+        <span class="n">iterations</span><span class="p">,</span>
+        <span class="n">threshold_eps</span><span class="p">,</span>
+        <span class="n">low_epsilon</span><span class="p">,</span>
+        <span class="n">high_epsilon</span><span class="p">,</span>
+        <span class="n">threshold_tol</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="p">,</span>
+        <span class="n">threshold_surer</span><span class="p">,</span>
+        <span class="n">species</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
+        <span class="n">species_pairs</span><span class="o">=</span><span class="n">species_pairs</span><span class="p">,</span>
+        <span class="n">species_labels</span><span class="o">=</span><span class="n">species_labels</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Section-2.-Data-preparation">
+<h2>Section 2. Data preparation<a class="headerlink" href="#Section-2.-Data-preparation" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Read-CSV-file">
+<h3>Read CSV file<a class="headerlink" href="#Read-CSV-file" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+human (39874, 12)
+human (12, 22180)
+macaque (39874, 10)
+macaque (10, 20583)
+mouse (17176, 8)
+mouse (8, 14674)
+</pre></div></div>
+</div>
+</section>
+<section id="Reduce-noise-and-normalize-data">
+<h3>Reduce noise and normalize data<a class="headerlink" href="#Reduce-noise-and-normalize-data" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">normalization</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+# data size after noise reduction and normalization
+human (12, 22180)
+macaque (10, 20583)
+mouse (8, 14674)
+</pre></div></div>
+</div>
+</section>
+<section id="Limit-the-genes-to-be-analyzed-to-transcription-factors">
+<h3>Limit the genes to be analyzed to transcription factors<a class="headerlink" href="#Limit-the-genes-to-be-analyzed-to-transcription-factors" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_tf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+# Number of genes
+(1639,)
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Section-3.-Each-step-of-the-process">
+<h2>Section 3. Each step of the process<a class="headerlink" href="#Section-3.-Each-step-of-the-process" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">SpeciesOT</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Masking-and-preprocessing">
+<h3>Masking and preprocessing<a class="headerlink" href="#Masking-and-preprocessing" title="Link to this heading"></a></h3>
+<p>Delete genes where even the maximum value is below the threshold</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+# Shape of gene expression data before masking
+human (12, 1404)
+macaque (10, 1391)
+mouse (8, 1133)
+# Shape of adata after removing columns (gene) where even the maximum value is below the threshold
+human (12, 971)
+macaque (10, 942)
+mouse (8, 785)
+# Number of genes for which the maximum expression value is greater than a threshold value
+human (971,)
+macaque (942,)
+mouse (785,)
+</pre></div></div>
+</div>
+</section>
+<section id="Calculate-transcriptome-distribution">
+<h3>Calculate transcriptome distribution<a class="headerlink" href="#Calculate-transcriptome-distribution" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">calculate_gene_distance_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Plot-gene-wise-distance-matrix">
+<h3>Plot gene-wise distance matrix<a class="headerlink" href="#Plot-gene-wise-distance-matrix" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span><span class="o">.</span><span class="n">check_gene_distance_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+human (971, 971)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_28_1.png" src="_images/tutorial1_28_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+macaque (942, 942)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_28_3.png" src="_images/tutorial1_28_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mouse (785, 785)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_28_5.png" src="_images/tutorial1_28_5.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Check mean of gene distance matrices
+human 0.9999999999999993
+macaque 0.9999999999999999
+mouse 1.0
+Check variance of gene distance matrices
+human 0.27685474727211556
+macaque 0.3098772157632858
+mouse 0.24427383723855112
+</pre></div></div>
+</div>
+</section>
+<section id="Gromov-Wasserstein-Optimal-Transport">
+<h3>Gromov-Wasserstein Optimal Transport<a class="headerlink" href="#Gromov-Wasserstein-Optimal-Transport" title="Link to this heading"></a></h3>
+<p>Calculate the optimal transport plan by solving the Entropy-regulalized GW problem</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">gromov_wasserstein_ot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Platform &#39;METAL&#39; is experimental and not all JAX functionality may be correctly supported!
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Metal device set to: Apple M3 Max
+
+systemMemory: 128.00 GB
+maxCacheSize: 48.00 GB
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1760617279.297143 2873583 mps_client.cc:510] WARNING: JAX Apple GPU support is experimental and not all JAX functionality is correctly supported!
+I0000 00:00:1760617279.308564 2873583 service.cc:145] XLA service 0x329a9bd50 initialized for platform METAL (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1760617279.308576 2873583 service.cc:153]   StreamExecutor device (0): Metal, &lt;undefined&gt;
+I0000 00:00:1760617279.309891 2873583 mps_client.cc:406] Using Simple allocator.
+I0000 00:00:1760617279.309902 2873583 mps_client.cc:384] XLA backend will use up to 103078739968 bytes on device 0 for SimpleAllocator.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+epsilon = 0.0100000 converged
+</pre></div></div>
+</div>
+</section>
+<section id="Calculate-normalized-OTP-(gene-to-gene-correspondence-rate)">
+<h3>Calculate normalized OTP (gene-to-gene correspondence rate)<a class="headerlink" href="#Calculate-normalized-OTP-(gene-to-gene-correspondence-rate)" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">normalize_otp</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Transcriptomic-discrepancy">
+<h3>Transcriptomic discrepancy<a class="headerlink" href="#Transcriptomic-discrepancy" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_transcriptomic_discrepancy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_34_0.png" src="_images/tutorial1_34_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_34_1.png" src="_images/tutorial1_34_1.png" />
+</div>
+</div>
+</section>
+<section id="Gene-to-gene-Corespondence">
+<h3>Gene-to-gene Corespondence<a class="headerlink" href="#Gene-to-gene-Corespondence" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">target_genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GATA3&quot;</span><span class="p">,</span> <span class="s2">&quot;GATA2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOMES&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX17&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM1&quot;</span><span class="p">,</span> <span class="s2">&quot;TFAP2C&quot;</span><span class="p">]</span>
+    <span class="n">target_species_pairs</span> <span class="o">=</span> <span class="s2">&quot;human_mouse&quot;</span>
+    <span class="c1"># target_species_pairs = &quot;mouse_human&quot;</span>
+<span class="k">elif</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">target_genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GATA3&quot;</span><span class="p">,</span> <span class="s2">&quot;POU5F1&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX2&quot;</span><span class="p">]</span>
+    <span class="n">target_species_pairs</span> <span class="o">=</span> <span class="s2">&quot;human_chimpanzee&quot;</span>
+<span class="k">elif</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+    <span class="n">target_genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GATA3&quot;</span><span class="p">,</span> <span class="s2">&quot;GATA2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOMES&quot;</span><span class="p">]</span>
+    <span class="n">target_species_pairs</span> <span class="o">=</span> <span class="s2">&quot;animal1_animal2&quot;</span>
+
+<span class="n">top_n</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">primate_gene_notation</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;all_capital_italic&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">)</span>
+<span class="n">spe_gene_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">,</span> <span class="n">primate_gene_notation</span><span class="p">))</span>
+
+<span class="c1"># Reflects differences in genetic notation between primates and other species</span>
+<span class="k">if</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">spe_gene_dict</span><span class="p">[</span><span class="s2">&quot;mouse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;capitalized_italic&quot;</span>
+<span class="k">elif</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">spe_gene_dict</span><span class="p">[</span><span class="s2">&quot;Ms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;capitalized_italic&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Summarize-results-in-Dashboard">
+<h3>Summarize results in Dashboard<a class="headerlink" href="#Summarize-results-in-Dashboard" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span><span class="o">.</span><span class="n">dashboard</span><span class="p">(</span><span class="n">target_species_pairs</span><span class="p">,</span> <span class="n">target_genes</span><span class="p">,</span> <span class="n">top_n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Human -&gt; Mouse: GATA3               Human -&gt; Mouse: GATA2               Human -&gt; Mouse: EOMES               Human -&gt; Mouse: SOX17               Human -&gt; Mouse: PRDM1               Human -&gt; Mouse: TFAP2C
+shape: (10, 3)                      shape: (10, 3)                      shape: (10, 3)                      shape: (10, 3)                      shape: (10, 3)                      shape: (10, 3)
+┌───────┬─────────┬─────────┐       ┌───────┬─────────┬─────────┐       ┌───────┬────────┬─────────┐        ┌───────┬────────┬─────────┐        ┌───────┬─────────┬─────────┐       ┌───────┬────────┬─────────┐
+│ index ┆ Gene    ┆ Value   │       │ index ┆ Gene    ┆ Value   │       │ index ┆ Gene   ┆ Value   │        │ index ┆ Gene   ┆ Value   │        │ index ┆ Gene    ┆ Value   │       │ index ┆ Gene   ┆ Value   │
+│ ---   ┆ ---     ┆ ---     │       │ ---   ┆ ---     ┆ ---     │       │ ---   ┆ ---    ┆ ---     │        │ ---   ┆ ---    ┆ ---     │        │ ---   ┆ ---     ┆ ---     │       │ ---   ┆ ---    ┆ ---     │
+│ u32   ┆ str     ┆ str     │       │ u32   ┆ str     ┆ str     │       │ u32   ┆ str    ┆ str     │        │ u32   ┆ str    ┆ str     │        │ u32   ┆ str     ┆ str     │       │ u32   ┆ str    ┆ str     │
+╞═══════╪═════════╪═════════╡       ╞═══════╪═════════╪═════════╡       ╞═══════╪════════╪═════════╡        ╞═══════╪════════╪═════════╡        ╞═══════╪═════════╪═════════╡       ╞═══════╪════════╪═════════╡
+│ 1     ┆ TFCP2L1 ┆ 15.9958 │       │ 1     ┆ TFCP2L1 ┆ 21.2601 │       │ 1     ┆ HAND1  ┆ 33.8025 │        │ 1     ┆ SALL4  ┆ 33.4393 │        │ 1     ┆ PRDM1   ┆ 30.6195 │       │ 1     ┆ TFAP2C ┆ 58.6985 │
+│ 2     ┆ MSX2    ┆ 13.0620 │       │ 2     ┆ KLF2    ┆ 17.6796 │       │ 2     ┆ OTX2   ┆ 32.8179 │        │ 2     ┆ CENPA  ┆ 18.6912 │        │ 2     ┆ PRDM14  ┆ 29.3454 │       │ 2     ┆ ESRRB  ┆ 40.7804 │
+│ 3     ┆ MYB     ┆ 10.3333 │       │ 3     ┆ MSX2    ┆ 15.3343 │       │ 3     ┆ ZIC5   ┆ 14.5479 │        │ 3     ┆ ZNF207 ┆ 16.2833 │        │ 3     ┆ KLF2    ┆ 11.6631 │       │ 3     ┆ PRDM14 ┆ 0.1318  │
+│ 4     ┆ SALL1   ┆ 8.6226  │       │ 4     ┆ HEY1    ┆ 14.3372 │       │ 4     ┆ TBXT   ┆ 8.7340  │        │ 4     ┆ HMGA1  ┆ 12.9616 │        │ 4     ┆ HEY1    ┆ 11.0331 │       │ 4     ┆ SALL4  ┆ 0.0743  │
+│ 5     ┆ KLF2    ┆ 8.0654  │       │ 5     ┆ MYB     ┆ 6.7771  │       │ 5     ┆ POU3F1 ┆ 7.4624  │        │ 5     ┆ YBX3   ┆ 9.6523  │        │ 5     ┆ ESRRB   ┆ 5.5895  │       │ 5     ┆ PRDM1  ┆ 0.0690  │
+│ 6     ┆ HEY1    ┆ 6.6176  │       │ 6     ┆ SALL1   ┆ 4.0171  │       │ 6     ┆ ZIC2   ┆ 0.8043  │        │ 6     ┆ POU5F1 ┆ 2.5335  │        │ 6     ┆ TEAD2   ┆ 3.3177  │       │ 6     ┆ HMGA1  ┆ 0.0516  │
+│ 7     ┆ EVX1    ┆ 4.6951  │       │ 7     ┆ PRDM1   ┆ 3.4329  │       │ 7     ┆ FOXD3  ┆ 0.7716  │        │ 7     ┆ ZNF706 ┆ 2.1879  │        │ 7     ┆ TFAP2C  ┆ 2.5549  │       │ 7     ┆ YBX3   ┆ 0.0358  │
+│ 8     ┆ HMGA2   ┆ 4.4324  │       │ 8     ┆ GATA2   ┆ 2.9142  │       │ 8     ┆ FOXR2  ┆ 0.2254  │        │ 8     ┆ ETV5   ┆ 1.5098  │        │ 8     ┆ MSX2    ┆ 2.3051  │       │ 8     ┆ PEG3   ┆ 0.0316  │
+│ 9     ┆ NR5A2   ┆ 3.4367  │       │ 9     ┆ PRDM14  ┆ 2.4563  │       │ 9     ┆ MESP1  ┆ 0.1382  │        │ 9     ┆ TP53   ┆ 1.2767  │        │ 9     ┆ TFCP2L1 ┆ 1.6401  │       │ 9     ┆ CENPA  ┆ 0.0285  │
+│ 10    ┆ GATA2   ┆ 3.3710  │       │ 10    ┆ NR5A2   ┆ 2.2881  │       │ 10    ┆ MYRF   ┆ 0.1072  │        │ 10    ┆ PEG3   ┆ 0.5450  │        │ 10    ┆ SALL1   ┆ 0.8676  │       │ 10    ┆ ZNF207 ┆ 0.0243  │
+└───────┴─────────┴─────────┘       └───────┴─────────┴─────────┘       └───────┴────────┴─────────┘        └───────┴────────┴─────────┘        └───────┴─────────┴─────────┘       └───────┴────────┴─────────┘
+</pre></div></div>
+</div>
+</section>
+<section id="Confirmation-of-expression-levels-of-target-genes-and-corresponding-genes">
+<h3>Confirmation of expression levels of target genes and corresponding genes<a class="headerlink" href="#Confirmation-of-expression-levels-of-target-genes-and-corresponding-genes" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">corresponding_gene_expressions_separated_heatmap</span><span class="p">(</span><span class="n">target_species_pairs</span><span class="p">,</span> <span class="n">spe_gene_dict</span><span class="p">,</span> <span class="n">target_genes</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">fujiwara_opt</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">corresponding_gene_expressions_separated_heatmap</span><span class="p">(</span><span class="n">target_species_pairs</span><span class="p">,</span> <span class="n">spe_gene_dict</span><span class="p">,</span> <span class="n">target_genes</span><span class="p">,</span> <span class="n">top_n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_0.png" src="_images/tutorial1_41_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_1.png" src="_images/tutorial1_41_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_2.png" src="_images/tutorial1_41_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_3.png" src="_images/tutorial1_41_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_4.png" src="_images/tutorial1_41_4.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_5.png" src="_images/tutorial1_41_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_6.png" src="_images/tutorial1_41_6.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_7.png" src="_images/tutorial1_41_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_8.png" src="_images/tutorial1_41_8.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_9.png" src="_images/tutorial1_41_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_10.png" src="_images/tutorial1_41_10.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_41_11.png" src="_images/tutorial1_41_11.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Section-4.-Visualization">
+<h2>Section 4. Visualization<a class="headerlink" href="#Section-4.-Visualization" title="Link to this heading"></a></h2>
+<section id="Check-gene-expression-level">
+<h3>Check gene expression level<a class="headerlink" href="#Check-gene-expression-level" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
+    <span class="n">spe</span> <span class="o">=</span> <span class="s2">&quot;animal1&quot;</span>
+    <span class="n">thr</span> <span class="o">=</span> <span class="mf">12.1</span>
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POU5F1&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX2&quot;</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="n">spe</span> <span class="o">=</span> <span class="s2">&quot;mouse&quot;</span>
+    <span class="n">thr</span> <span class="o">=</span> <span class="mf">4.5</span>
+    <span class="k">if</span> <span class="n">spe</span> <span class="o">==</span> <span class="s2">&quot;human&quot;</span><span class="p">:</span>
+        <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POU5F1&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX2&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ZXDC&quot;</span><span class="p">,</span> <span class="s2">&quot;ZZZ3&quot;</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">spe</span> <span class="o">=</span> <span class="s2">&quot;Hs&quot;</span>
+    <span class="n">thr</span> <span class="o">=</span> <span class="mf">12.1</span>
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POU5F1&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX2&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">check_gene_exp</span><span class="p">(</span><span class="n">spe</span><span class="p">,</span> <span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Warning: Column &#39;POU5F1&#39; not found in the Dataframe for species `Hs`
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_45_1.png" src="_images/tutorial1_45_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot_read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+# Shape of Polars DataFrame with cell names added to the beginning of gene expression data
+human (12, 22181)
+macaque (10, 20584)
+mouse (8, 14675)
+human Shape of the gene expression matrix (12, 22180)
+# Showing the first 5 rows (cells) and first 6 columns (genes) of the expression matrix for &#39;human&#39;
+gene             A1BG       A2M   A2M-AS1     A2ML1    A4GALT      AAAS
+Hs_iPSC1     3.197123  0.000000  0.628168  0.788659  1.184641  6.101282
+Hs_iPSC2     3.348480  0.856394  0.000000  0.856394  0.856394  5.760841
+Hs_iMeLC1    3.358307  0.000000  0.000000  0.526802  1.865677  5.515204
+Hs_iMeLC2    3.541350  0.000000  0.000000  0.288916  1.351660  5.338658
+Hs_d2PGCLC1  1.839765  0.000000  0.000000  1.524070  0.554837  5.761068
+macaque Shape of the gene expression matrix (10, 20583)
+# Showing the first 5 rows (cells) and first 6 columns (genes) of the expression matrix for &#39;macaque&#39;
+gene            A1CF       A2M     A2ML1  A2MP1    A4GALT      AAAS
+Mf_ESC1      0.00000  2.916637  0.000000    0.0  0.000000  5.340432
+Mf_ESC2      0.00000  1.980929  0.294816    0.0  0.539488  5.432008
+Mf_d2PGCLC1  0.27649  4.453729  0.276490    0.0  0.508417  5.738461
+Mf_d2PGCLC2  0.00000  4.463918  0.000000    0.0  0.306525  5.916905
+Mf_d4PGCLC1  0.00000  1.336395  0.284378    0.0  0.000000  5.854694
+mouse Shape of the gene expression matrix (8, 14674)
+# Showing the first 5 rows (cells) and first 6 columns (genes) of the expression matrix for &#39;mouse&#39;
+gene          A1CF       A2M  A4GALT      AAAS      AACS     AADAC
+EpiLC#1    1.09285  0.000000     0.0  7.287380  4.928688  1.092850
+EpiLC#2    0.00000  0.969529     0.0  7.269706  4.748000  3.266608
+d2BV+#1    0.00000  1.457332     0.0  6.472876  4.746356  0.607675
+d2BV+#2    0.00000  2.907896     0.0  6.924421  4.178420  0.000000
+d4BVSC+#1  0.00000  0.000000     0.0  7.084107  4.804090  1.319895
+</pre></div></div>
+</div>
+<section id="Plot-the-distribution-of-gene-expression-levels">
+<h4>Plot the distribution of gene expression levels<a class="headerlink" href="#Plot-the-distribution-of-gene-expression-levels" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.visualization()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">visualization</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_0.png" src="_images/tutorial1_48_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_1.png" src="_images/tutorial1_48_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_2.png" src="_images/tutorial1_48_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_3.png" src="_images/tutorial1_48_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_4.png" src="_images/tutorial1_48_4.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_5.png" src="_images/tutorial1_48_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_6.png" src="_images/tutorial1_48_6.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_7.png" src="_images/tutorial1_48_7.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_48_8.png" src="_images/tutorial1_48_8.png" />
+</div>
+</div>
+</section>
+<section id="Check-data-size-after-preprocessing">
+<h4>Check data size after preprocessing<a class="headerlink" href="#Check-data-size-after-preprocessing" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).data_size_after_preprocessing()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">data_size_after_preprocessing</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Shape of adata after normalization and preprocessing
+human (12, 971)
+macaque (10, 942)
+mouse (8, 785)
+# genes with all zero expression
+human 0
+macaque 0
+mouse 0
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_50_1.png" src="_images/tutorial1_50_1.png" />
+</div>
+</div>
+</section>
+<section id="Plot-which-genes-remained-after-preprocessing">
+<h4>Plot which genes remained after preprocessing<a class="headerlink" href="#Plot-which-genes-remained-after-preprocessing" title="Link to this heading"></a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labeled_genes</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">spe</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+    <span class="n">labeled_genes</span><span class="p">[</span><span class="n">spe</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
+    <span class="n">labeled_genes</span><span class="p">[</span><span class="s2">&quot;Ms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TBXT&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM1&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM14&quot;</span><span class="p">,</span> <span class="s2">&quot;TFAP2C&quot;</span><span class="p">]</span>
+    <span class="n">labeled_genes</span><span class="p">[</span><span class="s2">&quot;Mf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GATA3&quot;</span><span class="p">,</span> <span class="s2">&quot;GATA2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOMES&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX17&quot;</span><span class="p">,</span> <span class="s2">&quot;TBXT&quot;</span><span class="p">,</span>  <span class="s2">&quot;PRDM1&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM14&quot;</span><span class="p">,</span> <span class="s2">&quot;TFAP2C&quot;</span><span class="p">]</span>
+    <span class="n">labeled_genes</span><span class="p">[</span><span class="s2">&quot;Hs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GATA3&quot;</span><span class="p">,</span> <span class="s2">&quot;GATA2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOMES&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX17&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM1&quot;</span><span class="p">,</span> <span class="s2">&quot;TFAP2C&quot;</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset2&quot;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">spe</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
+        <span class="n">labeled_genes</span><span class="p">[</span><span class="n">spe</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POU5F1&quot;</span><span class="p">,</span> <span class="s2">&quot;SOX2&quot;</span><span class="p">,</span> <span class="s2">&quot;NANOG&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).plot_pca_highlighting_genes_retained_after_preprocessing_plotly(&quot;all_gene&quot;, labeled_genes, spe_gene_dict)</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_pca_highlighting_genes_retained_after_preprocessing</span><span class="p">(</span><span class="s2">&quot;all_gene&quot;</span><span class="p">,</span> <span class="n">labeled_genes</span><span class="p">,</span> <span class="n">spe_gene_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Explain Variance Ratio : [0.9649939  0.02250556]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_53_1.png" src="_images/tutorial1_53_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Explain Variance Ratio : [0.9690067  0.01897778]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_53_3.png" src="_images/tutorial1_53_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Explain Variance Ratio : [0.9498958 0.0288314]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_53_5.png" src="_images/tutorial1_53_5.png" />
+</div>
+</div>
+<p>Visualization using Plotly is also possible (commented out for display purposes)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).plot_pca_highlighting_genes_retained_after_preprocessing_plotly(&quot;all_gene&quot;, labeled_genes, spe_gene_dict)</span>
+
+<span class="c1"># spe_ot.plot_pca_highlighting_genes_retained_after_preprocessing_plotly(&quot;all_gene&quot;, labeled_genes, spe_gene_dict)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Check-calculated-GW-distance-and-OTP">
+<h4>Check calculated GW distance and OTP<a class="headerlink" href="#Check-calculated-GW-distance-and-OTP" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).calculate_dismat(</span>
+<span class="c1"># ).gromov_wasserstein_ot(</span>
+<span class="c1"># ).check_optimal_transport_results()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">check_optimal_transport_results</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_57_0.png" src="_images/tutorial1_57_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_57_1.png" src="_images/tutorial1_57_1.png" />
+</div>
+</div>
+</section>
+<section id="Plot-OTP-after-thresholding-the-top-5%">
+<h4>Plot OTP after thresholding the top 5%<a class="headerlink" href="#Plot-OTP-after-thresholding-the-top-5%" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot = SpeciesOT(Data)</span>
+<span class="c1"># spe_ot.preprocessing(</span>
+<span class="c1"># ).calculate_dismat(</span>
+<span class="c1"># ).gromov_wasserstein_ot(</span>
+<span class="c1"># ).filter_otp()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">filter_otp</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_0.png" src="_images/tutorial1_59_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_1.png" src="_images/tutorial1_59_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_2.png" src="_images/tutorial1_59_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_3.png" src="_images/tutorial1_59_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_4.png" src="_images/tutorial1_59_4.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_5.png" src="_images/tutorial1_59_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_6.png" src="_images/tutorial1_59_6.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_7.png" src="_images/tutorial1_59_7.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_59_8.png" src="_images/tutorial1_59_8.png" />
+</div>
+</div>
+</section>
+<section id="Creat-heatmap-of-common-genes-between-species">
+<h4>Creat heatmap of common genes between species<a class="headerlink" href="#Creat-heatmap-of-common-genes-between-species" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(Data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).calculate_dismat(</span>
+<span class="c1"># ).gromov_wasserstein_ot(</span>
+<span class="c1"># ).intersection_of_gene_lists()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">intersection_of_gene_lists</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_61_0.png" src="_images/tutorial1_61_0.png" />
+</div>
+</div>
+</section>
+<section id="Check-the-distribution-of-the-values-of-the-normalized-OTP">
+<h4>Check the distribution of the values of the normalized OTP<a class="headerlink" href="#Check-the-distribution-of-the-values-of-the-normalized-OTP" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># spe_ot2 = SpeciesOT(data)</span>
+<span class="c1"># spe_ot2.preprocessing(</span>
+<span class="c1"># ).calculate_dismat(</span>
+<span class="c1"># ).gromov_wasserstein_ot(</span>
+<span class="c1"># ).normalize_otp(</span>
+<span class="c1"># ).distribution_of_values()</span>
+
+<span class="n">spe_ot</span><span class="o">.</span><span class="n">distribution_of_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_63_0.png" src="_images/tutorial1_63_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_63_1.png" src="_images/tutorial1_63_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial1_63_2.png" src="_images/tutorial1_63_2.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="Section-5.-Chained-Processing">
+<h2>Section 5. Chained Processing<a class="headerlink" href="#Section-5.-Chained-Processing" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">read_csv</span><span class="p">()</span><span class="o">.</span><span class="n">normalization</span><span class="p">()</span><span class="o">.</span><span class="n">read_tf</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+human (39874, 12)
+human (12, 22180)
+macaque (39874, 10)
+macaque (10, 20583)
+mouse (17176, 8)
+mouse (8, 14674)
+# data size after noise reduction and normalization
+human (12, 22180)
+macaque (10, 20583)
+mouse (8, 14674)
+# Number of genes
+(1639,)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot2</span> <span class="o">=</span> <span class="n">SpeciesOT</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">calculate_gene_distance_matrix</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">gromov_wasserstein_ot</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">normalize_otp</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">dashboard</span><span class="p">(</span>
+    <span class="n">target_species_pairs</span><span class="o">=</span><span class="s2">&quot;human_mouse&quot;</span><span class="p">,</span>
+    <span class="n">target_genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;EOMES&quot;</span><span class="p">,</span> <span class="s2">&quot;PRDM1&quot;</span><span class="p">],</span>
+    <span class="n">top_n</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+# Shape of gene expression data before masking
+human (12, 1404)
+macaque (10, 1391)
+mouse (8, 1133)
+# Shape of adata after removing columns (gene) where even the maximum value is below the threshold
+human (12, 971)
+macaque (10, 942)
+mouse (8, 785)
+# Number of genes for which the maximum expression value is greater than a threshold value
+human (971,)
+macaque (942,)
+mouse (785,)
+epsilon = 0.0100000 converged
+Human -&gt; Mouse: EOMES               Human -&gt; Mouse: PRDM1
+shape: (10, 3)                      shape: (10, 3)
+┌───────┬────────┬─────────┐        ┌───────┬─────────┬─────────┐
+│ index ┆ Gene   ┆ Value   │        │ index ┆ Gene    ┆ Value   │
+│ ---   ┆ ---    ┆ ---     │        │ ---   ┆ ---     ┆ ---     │
+│ u32   ┆ str    ┆ str     │        │ u32   ┆ str     ┆ str     │
+╞═══════╪════════╪═════════╡        ╞═══════╪═════════╪═════════╡
+│ 1     ┆ HAND1  ┆ 33.8025 │        │ 1     ┆ PRDM1   ┆ 30.6195 │
+│ 2     ┆ OTX2   ┆ 32.8179 │        │ 2     ┆ PRDM14  ┆ 29.3454 │
+│ 3     ┆ ZIC5   ┆ 14.5479 │        │ 3     ┆ KLF2    ┆ 11.6631 │
+│ 4     ┆ TBXT   ┆ 8.7340  │        │ 4     ┆ HEY1    ┆ 11.0331 │
+│ 5     ┆ POU3F1 ┆ 7.4624  │        │ 5     ┆ ESRRB   ┆ 5.5895  │
+│ 6     ┆ ZIC2   ┆ 0.8043  │        │ 6     ┆ TEAD2   ┆ 3.3177  │
+│ 7     ┆ FOXD3  ┆ 0.7716  │        │ 7     ┆ TFAP2C  ┆ 2.5549  │
+│ 8     ┆ FOXR2  ┆ 0.2254  │        │ 8     ┆ MSX2    ┆ 2.3051  │
+│ 9     ┆ MESP1  ┆ 0.1382  │        │ 9     ┆ TFCP2L1 ┆ 1.6401  │
+│ 10    ┆ MYRF   ┆ 0.1072  │        │ 10    ┆ SALL1   ┆ 0.8676  │
+└───────┴────────┴─────────┘        └───────┴─────────┴─────────┘
+</pre></div></div>
+</div>
+</section>
+<section id="End">
+<h2>End<a class="headerlink" href="#End" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="readme.html" class="btn btn-neutral float-left" title="speciesot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial2.html" class="btn btn-neutral float-right" title="Dataset 2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
