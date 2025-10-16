@@ -40,11 +40,8 @@ Thumbs.db
 
 # --- Sphinx docs (build artifacts) ---
 docs/_build/
-docs/_doctrees/
-docs/_autosummary/
-
-# --- Static files that are generated ---
-!docs/_static/
+docs/_templates/
+docs/api/
 
 # --- Misc ---
 tmp/
