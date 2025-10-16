@@ -23,7 +23,7 @@ $ pip install speciesot
 
 ## Documentation
 
-The tutorial is available [here](./docs/_build/html/index.html).
+The tutorial is available **[here](https://yuyatokuta.github.io/Species-OT/)**.
 
 ## Preprint
 
