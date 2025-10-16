@@ -6,7 +6,7 @@
 
 Geometric inference of cross-species transcriptome correspondence using Gromov-Wasserstein optimal transport.
 
-![fig.png](./fig.png)
+![fig.png](./docs/_static/fig.png)
 
 ## Installation
 
@@ -23,7 +23,7 @@ $ pip install speciesot
 
 ## Documentation
 
-The tutorial is available [here](https://yuyatokuta.github.io/Species-OT/).
+The tutorial is available [here](./docs/_build/html/index.html).
 
 ## Preprint
 
