@@ -197,7 +197,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>comparison</strong> (<em>-</em>) – Compared to when all genes were targeted (“all_gene”), or compared to when only transcription factor genes were targeted (“transcription_factors”)</p></li>
 <li><p><strong>labeled_genes</strong> (<em>-</em>) – A list of genes to be labeled on the scatter plot, grouped by species</p></li>
-<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
+<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“mouse”] = “capitalized_italic”, spe_gene_dict[“human”] = “all_capitalized_italic”</p></li>
 </ul>
 </dd>
 </dl>
@@ -223,7 +223,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>comparison</strong> (<em>-</em>) – Compared to when all genes were targeted (“all_gene”), or compared to when only transcription factor genes were targeted (“transcription_factors”)</p></li>
 <li><p><strong>labeled_genes</strong> (<em>-</em>) – A list of genes to be labeled on the scatter plot, grouped by species</p></li>
-<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species. ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
+<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species. ex. spe_gene_dict[“mouse”] = “capitalized_italic”, spe_gene_dict[“human”] = “all_capitalized_italic”</p></li>
 </ul>
 </dd>
 </dl>
@@ -535,7 +535,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “Hs_Ms” etc. (Use “Species” instead of “Species_labels”)</p></li>
+<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “human_mouse” etc.</p></li>
 <li><p><strong>gene_list</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
 </ul>
@@ -560,8 +560,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “Hs_Ms” etc. Not “Human_Mouse”.</p></li>
-<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
+<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “human_mouse” etc.</p></li>
+<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“mouse”] = “capitalized_italic”, spe_gene_dict[“human”] = “all_capitalized_italic”</p></li>
 <li><p><strong>target_genes</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>top_n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
 </ul>
@@ -593,11 +593,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “Hs_Ms” etc. Not “Human_Mouse”.</p></li>
-<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
+<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “human_mouse” etc.</p></li>
+<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“mouse”] = “capitalized_italic”, spe_gene_dict[“human”] = “all_capitalized_italic”</p></li>
 <li><p><strong>target_genes</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>top_n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
-<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
+<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting</p></li>
 <li><p><strong>raw_return_opt</strong> (<em>-</em>) – Whether to return raw data</p></li>
 </ul>
 </dd>
@@ -622,11 +622,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “Hs_Ms” etc. Not “Human_Mouse”.</p></li>
-<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
+<li><p><strong>target_species_pairs</strong> (<em>-</em>) – “human_mouse” etc.</p></li>
+<li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“mouse”] = “capitalized_italic”, spe_gene_dict[“human”] = “all_capitalized_italic”</p></li>
 <li><p><strong>target_genes</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>top_n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
-<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
+<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting</p></li>
 <li><p><strong>raw_return_opt</strong> (<em>-</em>) – Whether to return raw data</p></li>
 </ul>
 </dd>
@@ -791,7 +791,7 @@ of the normalized optimal transport plans</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>species</strong> (<em>-</em>) – The species labels (“Hs” etc. Not “Human”)</p></li>
+<li><p><strong>species</strong> (<em>-</em>) – The species labels</p></li>
 <li><p><strong>gene</strong> (<em>-</em>) – The gene name to check gene expression levels for.</p></li>
 <li><p><strong>threshold</strong> (<em>-</em>) – If provided, a horizontal line at y=threshold</p></li>
 <li><p><strong>None.</strong> (<em>will be added to the plot. Defaults to</em>)</p></li>
@@ -851,14 +851,8 @@ of the normalized optimal transport plans</p>
 <span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.read_csv" title="Link to this definition"></a></dt>
 <dd><p>Read csv files</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_dir</strong> (<em>-</em>) – the path of input directory</p></li>
-<li><p><strong>&quot;../data/&quot;.</strong> (<em>Default to</em>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>self</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>self</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
