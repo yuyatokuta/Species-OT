@@ -170,14 +170,14 @@ def _plot_gene_expression(
     # Set labels based on the data option
     ylabel = "log-normalized expression level"
     xlabel = ""
+    if data_option == "dataset2":
+        ylabel = "log2(RP100K+1)"
+        xlabel = "Single-cells"
+        ax.set_ylim(0, 8)
     if data_option == "dataset1":
         ylabel = "log2(RPM+1)"
         xlabel = "Sampling timing"
         ax.set_ylim(0, 14)
-    elif data_option == "dataset2":
-        ylabel = "log2(RP100K+1)"
-        xlabel = "Single-cells"
-        ax.set_ylim(0, 8)
 
     if show_ylabel:
         ax.set_ylabel(ylabel)
@@ -581,8 +581,8 @@ class Data(Config):
         return df
 
 
-    def _creat_adata(self, df_csv, spe):
-        """_creat_adata
+    def _create_adata(self, df_csv, spe):
+        """_create_adata
         
         Function to create adata sorted alphabetically for genes with non-zero expression
 
@@ -610,10 +610,6 @@ class Data(Config):
         
         Read csv files
 
-        Args:
-            - input_dir (path): the path of input directory
-            Default to "../data/".
-
         Returns:
             self
 
@@ -634,17 +630,17 @@ class Data(Config):
                 if spe == "mouse" and self.mouse_option == "drop":
                     df_csv[spe] = df_csv[spe].drop(["mESC#1", "mESC#2"], axis=1)
                 df_csv[spe] = self._set_index_and_columns_names_to_none(df_csv[spe])
-                self.adata[spe] = self._creat_adata(df_csv, spe)
+                self.adata[spe] = self._create_adata(df_csv, spe)
                 df_csv[spe] = df_csv[spe].T
                 df_csv[spe] = self._set_index_and_columns_names_to_none(df_csv[spe])
                 df_csv[spe] = df_csv[spe].astype(np.float32)
-                self.adata[spe] = self._creat_adata(df_csv, spe)
+                self.adata[spe] = self._create_adata(df_csv, spe)
         
         elif self.data_option == "dataset2":
             for spe in self.species:
                 df_csv[spe] = pd.read_csv(f"{INPUT_DIR}/dataset2_{spe}.csv", header="infer", index_col="CellID")  
                 df_csv[spe] = self._set_index_and_columns_names_to_none(df_csv[spe])
-                self.adata[spe] = self._creat_adata(df_csv, spe)
+                self.adata[spe] = self._create_adata(df_csv, spe)
                 if spe == "mouse":
                     self.adata[spe] = self.adata[spe].copy()
                     self.adata[spe].var.index = self.adata[spe].var.index.str.upper()
@@ -653,7 +649,7 @@ class Data(Config):
             for spe in self.species:
                 df_csv[spe] = pd.read_csv(f"{INPUT_DIR}/{spe}.csv", header="infer", index_col="CellID")
                 df_csv[spe] = self._set_index_and_columns_names_to_none(df_csv[spe])
-                self.adata[spe] = self._creat_adata(df_csv, spe)
+                self.adata[spe] = self._create_adata(df_csv, spe)
 
         else:
             print(self.data_option)
@@ -723,7 +719,7 @@ class Data(Config):
         Function to check gene expression levels for a given species and genes
 
         Args:
-            - species (str): The species labels ("human” etc.)
+            - species (str): The species labels
             - gene(str): The gene name to check gene expression levels for.
             - threshold(float, optimal): If provided, a horizontal line at y=threshold 
             will be added to the plot. Defaults to None.
@@ -950,14 +946,12 @@ class SpeciesOT(Data):
         ax.set_ylabel("Frequency")
         ax.legend(self.species_labels)
 
-        if data_pattern == "dataset2":
-            ax.set_xlim(0, 8)
-            ax.set_ylim(0, 1200)
-        elif data_pattern == "dataset1":
+        if data_pattern == "dataset1":
             ax.set_xlim(0, 14)
             ax.set_ylim(0, 600)
-        else:
-            print("--")
+        elif data_pattern == "dataset2":
+            ax.set_xlim(0, 8)
+            ax.set_ylim(0, 1200)
 
         plt.show()
 
@@ -986,6 +980,7 @@ class SpeciesOT(Data):
         ax.legend(self.species_labels)
         ax.axvline(x=self.threshold, color="red")
 
+            
         if data_pattern == "dataset1":
             if max_or_med == "max":
                 ax.text(self.threshold * 1.05, 600, "log2(RPM+1)=" + str(self.threshold))
@@ -997,12 +992,9 @@ class SpeciesOT(Data):
             ax.set_xlim(0, 14)
 
         elif data_pattern == "dataset2":
-            ax.text(self.threshold * 1.05, 600, "log2(RPM+1)=" + str(self.threshold))
-            ax.set_xlim(0, 14)
-            ax.set_ylim(0, 800)
-
-        else:
-            print("--")
+            ax.text(self.threshold * 1.05, 1750, f"log2(RP100K+1)={self.threshold}")
+            ax.set_xlim(0, 8)
+            ax.set_ylim(0, 2000)
 
         plt.show()
 
@@ -1121,13 +1113,13 @@ class SpeciesOT(Data):
             >>> spe_ot.visualization()
         """
         if (
-            self.data_option == "dataset2"
-        ):
-            data_pattern = "dataset2"
-        elif (
             self.data_option == "dataset1"
         ):
             data_pattern = "dataset1"
+        elif (
+            self.data_option == "dataset2"
+        ):
+            data_pattern = "dataset2"
 
         # Obtain maximum and median expression levels for each gene
         maxvalue, medvalue = self._obtain_maximum_and_median_gene_expression_level()
@@ -3054,19 +3046,8 @@ class SpeciesOT(Data):
         # Define your labels
         labels = self.species_labels
 
-        if self.data_option == "dataset1":
-            # Reverse the input distance matrix both row-wise and column-wise
-            reversed_sinkhorn_entropy_gw_distance = np.flipud(
-                np.fliplr(sinkhorn_entropy_gw_distance)
-            )
-            # linked_sinkhorn = linkage(pdist(reversed_sinkhorn_entropy_gw_distance), "ward") # incorect former definition
-            condensed = squareform(reversed_sinkhorn_entropy_gw_distance)
-
-            # Reversed labels to match the reversed matrix
-            labels = labels[::-1]
-        else:
-            # linked_sinkhorn = linkage(pdist(sinkhorn_entropy_gw_distance), "ward")
-            condensed = squareform(sinkhorn_entropy_gw_distance)
+        # linked_sinkhorn = linkage(pdist(sinkhorn_entropy_gw_distance), "ward")
+        condensed = squareform(sinkhorn_entropy_gw_distance)
 
         linked_sinkhorn = linkage(condensed, "single")
 
@@ -3278,7 +3259,7 @@ class SpeciesOT(Data):
         Function to generate dashboards
 
         Args:
-            - target_species_pairs (str): "human_mouse” etc. (Use “Species” instead of "Species_labels")
+            - target_species_pairs (str): "human_mouse” etc.
             - gene_list (list): List of genes to be analyzed
             - n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
         
@@ -3900,7 +3881,7 @@ class SpeciesOT(Data):
 
         Args:
             - target_species_pairs (string): "human_mouse” etc.
-            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["mouse"] = "all_capitalized_italic"
+            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["human"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
             - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting
