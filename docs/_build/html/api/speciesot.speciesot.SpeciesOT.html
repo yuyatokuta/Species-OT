@@ -50,7 +50,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial1.html">Dataset 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial2.html">Dataset 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial3.html">Dataset custom</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -589,7 +588,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_heatmap">
-<span class="sig-name descname"><span class="pre">corresponding_gene_expressions_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_species_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spe_gene_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fujiwara_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_return_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_heatmap" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">corresponding_gene_expressions_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_species_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spe_gene_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset1_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_return_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_heatmap" title="Link to this definition"></a></dt>
 <dd><p>Function to creat a heatmap of the expression levels of the target genes and the corresponding genes within nth for given genes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -598,7 +597,7 @@
 <li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
 <li><p><strong>target_genes</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>top_n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
-<li><p><strong>fujiwara_opt</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
+<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
 <li><p><strong>raw_return_opt</strong> (<em>-</em>) – Whether to return raw data</p></li>
 </ul>
 </dd>
@@ -618,7 +617,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_separated_heatmap">
-<span class="sig-name descname"><span class="pre">corresponding_gene_expressions_separated_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_species_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spe_gene_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fujiwara_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_separate_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_return_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_separated_heatmap" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">corresponding_gene_expressions_separated_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_species_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spe_gene_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset1_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_separate_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_return_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.corresponding_gene_expressions_separated_heatmap" title="Link to this definition"></a></dt>
 <dd><p>Function to creat a heatmap of the expression levels of the target genes and the corresponding genes within nth for given genes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -627,7 +626,7 @@
 <li><p><strong>spe_gene_dict</strong> (<em>-</em>) – Gene name notation for each species.  ex. spe_gene_dict[“Ms”] = “capitalized_italic”, spe_gene_dict[“Hs”] = “all_capitalized_italic”</p></li>
 <li><p><strong>target_genes</strong> (<em>-</em>) – List of genes to be analyzed</p></li>
 <li><p><strong>top_n</strong> (<em>-</em>) – For each gene you want to analyze, how many corresponding genes do you want to find?</p></li>
-<li><p><strong>fujiwara_opt</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
+<li><p><strong>dataset1_bool</strong> (<em>-</em>) – Whether to correct the data to full time series data before plotting (only for fujiwara_3)</p></li>
 <li><p><strong>raw_return_opt</strong> (<em>-</em>) – Whether to return raw data</p></li>
 </ul>
 </dd>
@@ -849,13 +848,13 @@ of the normalized optimal transport plans</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.SpeciesOT.read_csv">
-<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.read_csv" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.read_csv" title="Link to this definition"></a></dt>
 <dd><p>Read csv files</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_dir</strong> (<em>-</em>) – the path of input directory</p></li>
-<li><p><strong>&quot;../data/default/&quot;.</strong> (<em>Default to</em>)</p></li>
+<li><p><strong>&quot;../data/&quot;.</strong> (<em>Default to</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -871,16 +870,13 @@ of the normalized optimal transport plans</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.SpeciesOT.read_tf">
 <span class="sig-name descname"><span class="pre">read_tf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.SpeciesOT.read_tf" title="Link to this definition"></a></dt>
-<dd><p>Read human transcription factors genes</p>
+<dd><p>Read human transcription factors genes from hTF.txt in TFs directory</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
 <li><p>self</p></li>
 </ul>
 </p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>input_dir</strong> (<em>-</em>) – Path of the file containing the list of transcription factors</p>
 </dd>
 </dl>
 <dl class="simple">

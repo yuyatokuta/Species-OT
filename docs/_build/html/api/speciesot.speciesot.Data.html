@@ -51,7 +51,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial1.html">Dataset 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial2.html">Dataset 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial3.html">Dataset custom</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -107,13 +106,13 @@
 <p>Class for retrieving data.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.Data.read_csv">
-<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_csv" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_csv" title="Link to this definition"></a></dt>
 <dd><p>Read csv files</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_dir</strong> (<em>-</em>) – the path of input directory</p></li>
-<li><p><strong>&quot;../data/default/&quot;.</strong> (<em>Default to</em>)</p></li>
+<li><p><strong>&quot;../data/&quot;.</strong> (<em>Default to</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -191,16 +190,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.Data.read_tf">
 <span class="sig-name descname"><span class="pre">read_tf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_tf" title="Link to this definition"></a></dt>
-<dd><p>Read human transcription factors genes</p>
+<dd><p>Read human transcription factors genes from hTF.txt in TFs directory</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
 <li><p>self</p></li>
 </ul>
 </p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>input_dir</strong> (<em>-</em>) – Path of the file containing the list of transcription factors</p>
 </dd>
 </dl>
 <dl class="simple">

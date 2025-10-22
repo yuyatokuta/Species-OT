@@ -37,7 +37,7 @@ import screcode
 def configure_platform(platform="metal"):
     """configure_platform
 
-    Configure the JAX platform.
+    Select a platform (Apple Silicon, NVIDIA GPU, or other) and configure the JAX backend accordingly.
     
     Args:
         platform (str): The desired platform. Options are 'gpu', 'metal', or 'cpu'.
@@ -599,20 +599,20 @@ class Data(Config):
         adata[spe] = adata[spe][:, sorted_genes[spe]]
         gene_expression_sums[spe] = np.array(adata[spe].X.sum(axis=0)).flatten()
         adata[spe] = adata[spe][:, gene_expression_sums[spe] > 0]  
-        print(spe, adata[spe].shape)
+        # print(spe, adata[spe].shape)
 
         return adata[spe]
     
 
 
-    def read_csv(self, input_dir=""):
+    def read_csv(self):
         """read_csv
         
         Read csv files
 
         Args:
             - input_dir (path): the path of input directory
-            Default to "../data/default/".
+            Default to "../data/".
 
         Returns:
             self
@@ -620,28 +620,15 @@ class Data(Config):
         Example:
             >>> data = data.read_csv()
         """
-        if input_dir=="":
-            if self.data_option == "dataset1" or self.data_option == "dataset2":
-                INPUT_DIR = "../data"
-            elif self.data_option == "custom":
-                INPUT_DIR = "../custom"
-        else:
-            INPUT_DIR = input_dir
+        if self.data_option == "dataset1" or self.data_option == "dataset2":
+            INPUT_DIR = "../data"
+        elif self.data_option == "custom":
+            INPUT_DIR = "../custom"
 
         df_csv = {}
         self.adata = {}
 
         if self.data_option == "dataset1":
-            # df_fujiwara_primates = pd.read_csv(
-            #     f"{INPUT_DIR}/set1/Shared_table_before_log_include0.tsv",
-            #     delimiter="\t",
-            #     index_col="gene",
-            # )
-            # df_fujiwara_mouse = pd.read_csv(
-            #     f"{INPUT_DIR}/set2/polished_GSE67259_expression_mouse_before_log.txt",
-            #     delimiter="\t",
-            #     index_col="gene",
-            # )
             for spe in self.species:
                 df_csv[spe] = pd.read_csv(f"{INPUT_DIR}/dataset1_{spe}.csv", header="infer", index_col="gene")
                 if spe == "mouse" and self.mouse_option == "drop":
@@ -695,26 +682,15 @@ class Data(Config):
             >>> data = data.normalization()
         """
         if (
-            self.data_option == "custom"
-            or self.data_option == "nakamura"
-            or self.data_option == "dataset2"
+            self.data_option == "dataset2" or self.data_option == "custom"
         ):
             size_factor = 1e5
-            print("# data size after noise reduction and normalization")
             for spe in self.species:
-                # Make an explicit copy of the AnnData object slice
                 adata_copy = self.adata[spe].copy()
-
-                # Resolution of the curse of dimensionality (RECODE) is
-                #  a noise reduction method for single-cell sequencing data
-                #  based on high-dimensional statistics
                 recode = screcode.RECODE(version=2)
-
-                # Perform modifications on the copy
                 adata_copy.obsm["RECODE"] = recode.fit_transform(
                     np.array(adata_copy.X.copy(), dtype="int32")
                 )
-
                 adata_copy.obsm["normalized_log"] = np.log2(
                     size_factor
                     * (
@@ -722,35 +698,16 @@ class Data(Config):
                     ).T
                     + 1
                 )
-
-                # Reassign the modified copy back to the original object
                 self.adata[spe] = adata_copy
-
-                print(
-                    spe,
-                    self.adata[spe].obsm["normalized_log"].shape
-                )
 
         elif (
-            self.data_option == "fujiwara"
-            or self.data_option == "dataset1"
+            self.data_option == "dataset1"
         ):
-            print("# data size after noise reduction and normalization")
             for spe in self.species:
-                # adata[spe]のコピーを作成し、新しい変数に代入
                 adata_copy = self.adata[spe].copy()
-
-                # コピーしたオブジェクトに対して操作を行う
                 adata_copy.obsm["normalized"] = adata_copy.X.copy()
                 adata_copy.obsm["normalized_log"] = np.log2(adata_copy.obsm["normalized"] + 1)
-
-                # 最後に、元のadata[spe]にコピーしたオブジェクトを代入
                 self.adata[spe] = adata_copy
-
-                print(
-                    spe,
-                    self.adata[spe].obsm["normalized_log"].shape
-                )
                 
         else:
             print(self.data_option)
@@ -858,39 +815,6 @@ class Data(Config):
 
 
 
-    # def _obtain_transcription_factors(self, input_dir_):
-    #     """_obtain_transcription_factors
-        
-    #     Function to obrain transcription factors from inputted file
-
-    #     This is used in Data class function "read_tf"
-    #     """
-    #     if input_dir_=="":
-    #         if (
-    #             self.data_option == "fujiwara"
-    #             or self.data_option == "dataset1"
-    #         ):
-    #             df_TF = pd.read_csv(
-    #                 "../data/Fujiwara/2018_TF_gene.list.txt", delimiter="\t", index_col="gene_id"
-    #             )
-    #         else:
-    #             df_TF = pd.read_csv(
-    #                 "./genelist/2018_TF_gene.list.txt", delimiter="\t", index_col="gene_id"
-    #             )
-    #     else:
-    #         df_TF = pd.read_csv(
-    #                 input_dir_, delimiter="\t", index_col="gene_id"
-    #             )
-
-    #     df_TF.loc[1604, "gene_type"] = "TBXT"
-    #     df_TF.sort_values("gene_type", inplace=True)
-
-    #     transcription_factors = df_TF["gene_type"].values
-
-    #     return transcription_factors
-    
-
-
     def _get_sorted_selected_gene_expression(self, gene_selection, spe):
         """_get_sorted_selected_gene_expression
         
@@ -922,13 +846,10 @@ class Data(Config):
     def read_tf(self):
         """read_tf
         
-        Read human transcription factors genes
+        Read human transcription factors genes from hTF.txt in TFs directory
 
         Returns:
             - self
-
-        Args:
-            - input_dir (str) : Path of the file containing the list of transcription factors
 
         Outputs:
             - gene_selection.shape
@@ -936,10 +857,9 @@ class Data(Config):
         Example:
             >>> data = data.read_tf()
         """
-        df_TF = pd.read_csv("../data/hTF.txt", delimiter="\t", index_col="gene_id")
+        df_TF = pd.read_csv("../TFs/hTF.txt", delimiter="\t", index_col="gene_id")
         df_TF.sort_values("gene_type", inplace=True)
         transcription_factors = df_TF["gene_type"].values
-        # transcription_factors = self._obtain_transcription_factors(input_dir_)
 
         # Select genes based on the gene_option
         if self.gene_option == "intersection":
@@ -948,11 +868,9 @@ class Data(Config):
         elif self.gene_option == "distinct":
             gene_selection = transcription_factors
 
-        print("# Number of genes")
-        print(gene_selection.shape)
+        print("#genes in hTF.txt")
+        print(gene_selection.shape[0])
 
-        # Apply selection and sorting to expression data
-        # and get sorted selected gene list
         self.sorted_selected_vars = {}
         for spe in self.species:
             (
@@ -1486,7 +1404,7 @@ class SpeciesOT(Data):
         maxmask = self._create_max_expression_threshold_mask(threshold_spe)
 
         # Shape of gene expression data before masking
-        self._print_adata_shape(preprocessing_state="before")           
+        # self._print_adata_shape(preprocessing_state="before")      
 
         # Masking
         for spe in self.species:
@@ -1509,7 +1427,7 @@ class SpeciesOT(Data):
             self.adata[spe].obsm["normalized_log_select_preprocessed_masked"] = normalized_log_select_preprocessed_masked_data[spe]
 
         # Shape of gene expression data after preprocessing
-        self._print_adata_shape(preprocessing_state="after")
+        # self._print_adata_shape(preprocessing_state="after")
 
         # Create a list of genes remaining after preprocessing
         if self.gene_option == "intersection":
@@ -1521,12 +1439,12 @@ class SpeciesOT(Data):
                 self.adata[spe].obsm["normalized_log_select_preprocessed_masked"] = shared_genes_expression_data[spe]
         else:
             self.hvlabel = hvlabel_
-            print("# Number of genes for which the maximum expression value is greater than a threshold value")
-            for spe in self.species:
-                print(
-                    spe,
-                    self.hvlabel[spe].shape
-                    )
+            # print("# Number of genes for which the maximum expression value is greater than a threshold value")
+            # for spe in self.species:
+            #     print(
+            #         spe,
+            #         self.hvlabel[spe].shape
+            #         )
         
         # Convert to Pandas DataFrame
         self.plot_normalized_log_select_preprocessed_masked = {}
@@ -2471,36 +2389,36 @@ class SpeciesOT(Data):
                     dis_mat_ori[spe]
                 )  
 
-        elif self.metric_option == "weighted":
-            iPSC = 1.0
-            PGCLC = 1.0
+        # elif self.metric_option == "weighted":
+        #     iPSC = 1.0
+        #     PGCLC = 1.0
 
-            w_12 = _generate_weights(12, [], iPSC, PGCLC)
-            w_10 = _generate_weights(12, [4, 5], iPSC, PGCLC)
-            w_8 = _generate_weights(12, [2, 3, 10, 11], iPSC, PGCLC)
+        #     w_12 = _generate_weights(12, [], iPSC, PGCLC)
+        #     w_10 = _generate_weights(12, [4, 5], iPSC, PGCLC)
+        #     w_8 = _generate_weights(12, [2, 3, 10, 11], iPSC, PGCLC)
 
-            dis_mat_ori = {}
-            self.dis_mat = {}
+        #     dis_mat_ori = {}
+        #     self.dis_mat = {}
 
-            for spe in self.species:
-                if self.dismat_option == "original":
-                    mat = (
-                        self.adata[spe].obsm["normalized_log_select_preprocessed_masked"].T
-                    )  
-                elif self.dismat_option == "pca":
-                    mat = self.pca_embedding[spe]  
+        #     for spe in self.species:
+        #         if self.dismat_option == "original":
+        #             mat = (
+        #                 self.adata[spe].obsm["normalized_log_select_preprocessed_masked"].T
+        #             )  
+        #         elif self.dismat_option == "pca":
+        #             mat = self.pca_embedding[spe]  
 
-                if spe == "Hs" or spe == "Pt" or spe == "Pa":
-                    weights = w_12
-                elif spe == "Mf":
-                    weights = w_10
-                elif spe == "Ms":
-                    weights = w_8
+        #         if spe == "Hs" or spe == "Pt" or spe == "Pa":
+        #             weights = w_12
+        #         elif spe == "Mf":
+        #             weights = w_10
+        #         elif spe == "Ms":
+        #             weights = w_8
 
-                dis_mat_ori[spe] = _weighted_cdist(mat, w=weights)
-                self.dis_mat[spe] = dis_mat_ori[spe] / np.mean(
-                    dis_mat_ori[spe]
-                )  
+        #         dis_mat_ori[spe] = _weighted_cdist(mat, w=weights)
+        #         self.dis_mat[spe] = dis_mat_ori[spe] / np.mean(
+        #             dis_mat_ori[spe]
+        #         )  
 
 
         return self
@@ -3232,25 +3150,29 @@ class SpeciesOT(Data):
         This is used in SpeciesOT class function "entropy_gw_dendrogram", "outputs_for_paper"        
         """
         # Define the custom color for the dendrogram
-        custom_color = "#ff0000"
+        # custom_color = "#ff0000"
+        custom_color = "#000000"
 
-        plt.figure(figsize=(6, 3))
+        plt.figure(figsize=(4.5, 6))
         dendrogram(
             ordered_linkage,
             orientation="left",
             labels=labels,
-            distance_sort="descending",
+            # distance_sort="descending",
             show_leaf_counts=True,
-            color_threshold=np.inf,  # Set to infinity to apply the color to all links
-            link_color_func=lambda k: custom_color,  # Apply custom color
+            color_threshold=np.inf,
+            link_color_func=lambda k: custom_color,
         )
 
-        if self.data_option == "dataset1":
-            plt.gca().invert_yaxis()  # Invert the y-axis to reverse the dendrogram vertically
-
-        # plt.title("Dendrogram derived from Sinkhorn entropy GW distance")
+        ax = plt.gca()
+        ax.set_xlabel("Transcriptomic discrepancy")
+        ax.set_xlabel("")
+        plt.title("")
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
+        ax.spines["bottom"].set_visible(True)
         plt.title("Transcriptomic discrepancy tree")
-        # plt.xlabel("Sinkhorn Entropy GW distance")  # Former version
         plt.xlabel("Transcriptomic discrepancy")
         plt.show()       
 
@@ -3423,8 +3345,8 @@ class SpeciesOT(Data):
             >>> spe_ot.dashboard(target_species_pairs, target_genes, top_n)
         """
         spe1, spe2 = target_species_pairs.split('_')
-        spe_label_1 = self.species_labels[self.species.index(spe1)]
-        spe_label_2 = self.species_labels[self.species.index(spe2)]
+        spe_label_1 = self.species[self.species.index(spe1)]
+        spe_label_2 = self.species[self.species.index(spe2)]
         df_message = {}
         df_eyetest = {}
         
@@ -3618,10 +3540,10 @@ class SpeciesOT(Data):
 
         # Create reference gene expression dataframe
         if self.data_option == "dataset1":
-            fujiwara_opt = True
+            dataset1_bool = True
         else:
-            fujiwara_opt = False
-        reference_df = self._create_reference_gene_expression_dataframe(fujiwara_opt)
+            dataset1_bool = False
+        reference_df = self._create_reference_gene_expression_dataframe(dataset1_bool)
 
         # Obtain the expression level of the target genes and corresponding genes
         df1_transposed, df2_transposed = \
@@ -3771,7 +3693,7 @@ class SpeciesOT(Data):
     
 
 
-    def _create_reference_gene_expression_dataframe(self, fujiwara_opt=False):
+    def _create_reference_gene_expression_dataframe(self, dataset1_bool=False):
         """_create_reference_gene_expression_dataframe
         
         Function to return a new Dataframe with the average of two data points from the same period when data_option is “dataset1,” 
@@ -3781,7 +3703,7 @@ class SpeciesOT(Data):
         """
         reference_df = {}
 
-        if fujiwara_opt:
+        if dataset1_bool:
             # Create a new data frame averaged over two contemporaneous data points
             for key in self.species:
                 reference_df[key] = _merge_pairs_with_average(self.plot_normalized_log_select_preprocessed_masked[key])
@@ -3819,7 +3741,7 @@ class SpeciesOT(Data):
     
 
 
-    def _plot_heatmap(self, spe, cells, spe_gene_dict, fujiwara_opt, transposed_df, vmin, vmax):
+    def _plot_heatmap(self, spe, cells, spe_gene_dict, dataset1_bool, transposed_df, vmin, vmax):
         """_plot_heatmap
         
         Function to plot heatmap
@@ -3899,7 +3821,7 @@ class SpeciesOT(Data):
         # x-axis label (cell name)
         cells_fontsize = gene_fontsize
         if num_cells < 20:
-            if fujiwara_opt:
+            if dataset1_bool:
                 ax.set_xticklabels(ax.get_xticklabels(), fontsize=cells_fontsize)
             else: 
                 ax.set_xticklabels(cells[spe], fontsize=cells_fontsize)
@@ -3928,7 +3850,7 @@ class SpeciesOT(Data):
 
 
 
-    def _plot_heatmap_and_colorbar_separately(self, spe, cells, spe_gene_dict, fujiwara_opt, transposed_df, vmin, vmax, cbar_opt):
+    def _plot_heatmap_and_colorbar_separately(self, spe, cells, spe_gene_dict, dataset1_bool, transposed_df, vmin, vmax, cbar_opt):
         """_plot_heatmap
         
         Function to plot heatmap and color bar separately
@@ -3997,7 +3919,7 @@ class SpeciesOT(Data):
         # x-axis label (cell name)
         cells_fontsize = gene_fontsize
         if num_cells < 20:
-            if fujiwara_opt:
+            if dataset1_bool:
                 ax.set_xticklabels(ax.get_xticklabels(), fontsize=cells_fontsize)
             else: 
                 ax.set_xticklabels(cells[spe], fontsize=cells_fontsize)
@@ -4026,7 +3948,7 @@ class SpeciesOT(Data):
 
 
     def corresponding_gene_expressions_heatmap(
-        self, target_species_pairs, spe_gene_dict, target_genes, top_n, fujiwara_opt=False, raw_return_opt=False
+        self, target_species_pairs, spe_gene_dict, target_genes, top_n, dataset1_bool=False, raw_return_opt=False
     ):
         """corresponding_gene_expressions_heatmap
         
@@ -4037,7 +3959,7 @@ class SpeciesOT(Data):
             - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
-            - fujiwara_opt (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
+            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
             - raw_return_opt (bool): Whether to return raw data
         
         Outputs:
@@ -4056,7 +3978,7 @@ class SpeciesOT(Data):
             cells[spe] = self.adata[spe].obs.index.to_list()
 
         # Create reference gene expression dataframe
-        reference_df = self._create_reference_gene_expression_dataframe(fujiwara_opt)
+        reference_df = self._create_reference_gene_expression_dataframe(dataset1_bool)
 
         # Obtain the expression level of the target genes and corresponding genes
         integrated_df1_transposed, integrated_df2_transposed = \
@@ -4069,13 +3991,13 @@ class SpeciesOT(Data):
         vmax = max(integrated_df1_transposed.max().max(), integrated_df2_transposed.max().max())
 
         # Plot heatmap of spe1
-        self._plot_heatmap(spe1, cells, spe_gene_dict, fujiwara_opt, integrated_df1_transposed, vmin, vmax)
+        self._plot_heatmap(spe1, cells, spe_gene_dict, dataset1_bool, integrated_df1_transposed, vmin, vmax)
 
         if raw_return_opt:
             print("The returned object (`integrated_df1_transposed`) is pd.DataFrame")
 
         # Plot heatmap of spe2
-        self._plot_heatmap(spe2, cells, spe_gene_dict, fujiwara_opt, integrated_df2_transposed, vmin, vmax)
+        self._plot_heatmap(spe2, cells, spe_gene_dict, dataset1_bool, integrated_df2_transposed, vmin, vmax)
 
         if raw_return_opt:
             print("The returned object (`integrated_df2_transposed`) is pd.DataFrame")
@@ -4083,13 +4005,13 @@ class SpeciesOT(Data):
         # Return raw data
         if raw_return_opt:
             print("# Raw data summary")
-            print("The number of objects that can be raturned is 2")
+            print("The number of objects that can be returned is 2")
             return integrated_df1_transposed, integrated_df2_transposed
 
 
 
     def corresponding_gene_expressions_separated_heatmap(
-        self, target_species_pairs, spe_gene_dict, target_genes, top_n, fujiwara_opt=False, cbar_separate_opt=False, raw_return_opt=False
+        self, target_species_pairs, spe_gene_dict, target_genes, top_n, dataset1_bool=False, cbar_separate_opt=False, raw_return_opt=False
     ):
         """corresponding_gene_expressions_separated_heatmap
         
@@ -4100,7 +4022,7 @@ class SpeciesOT(Data):
             - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
-            - fujiwara_opt (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
+            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
             - raw_return_opt (bool): Whether to return raw data
         
         Outputs:
@@ -4119,7 +4041,7 @@ class SpeciesOT(Data):
             cells[spe] = self.adata[spe].obs.index.to_list()
     
         # Create reference gene expression dataframe
-        reference_df = self._create_reference_gene_expression_dataframe(fujiwara_opt)
+        reference_df = self._create_reference_gene_expression_dataframe(dataset1_bool)
 
         # Obtain the expression level of the target genes and corresponding genes
         integrated_df1_transposed, integrated_df2_transposed = \
@@ -4156,19 +4078,19 @@ class SpeciesOT(Data):
                     cbar_opt = False
 
                 # Plot haatmap and color bar
-                self._plot_heatmap_and_colorbar_separately(spe, cells, spe_gene_dict, fujiwara_opt, df1_transposed, vmin, vmax, cbar_opt=False)
-                self._plot_heatmap_and_colorbar_separately(spe, cells, spe_gene_dict, fujiwara_opt, df2_transposed, vmin, vmax, cbar_opt=cbar_opt)
+                self._plot_heatmap_and_colorbar_separately(spe, cells, spe_gene_dict, dataset1_bool, df1_transposed, vmin, vmax, cbar_opt=False)
+                self._plot_heatmap_and_colorbar_separately(spe, cells, spe_gene_dict, dataset1_bool, df2_transposed, vmin, vmax, cbar_opt=cbar_opt)
             else:
                 # Plot heatmap of spe1
-                self._plot_heatmap(spe1, cells, spe_gene_dict, fujiwara_opt, df1_transposed, vmin, vmax)
+                self._plot_heatmap(spe1, cells, spe_gene_dict, dataset1_bool, df1_transposed, vmin, vmax)
 
                 # Plot heatmap of spe2
-                self._plot_heatmap(spe2, cells, spe_gene_dict, fujiwara_opt, df2_transposed, vmin, vmax)
+                self._plot_heatmap(spe2, cells, spe_gene_dict, dataset1_bool, df2_transposed, vmin, vmax)
 
             # Return raw data
             if raw_return_opt:
                 print("# Raw data summary")
-                print("The number of objects that can be raturned is 2")
+                print("The number of objects that can be returned is 2")
                 print("Both of them are pd.DataFrame")
                 return df1_transposed, df2_transposed
 

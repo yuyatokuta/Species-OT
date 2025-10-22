@@ -20,7 +20,6 @@ GitHub project is here： `yuyatokuta/Species-OT <https://github.com/yuyatokuta/
 
    tutorial1.ipynb
    tutorial2.ipynb
-   tutorial3.ipynb
 
 .. toctree::
    :maxdepth: 2

@@ -11,6 +11,12 @@ Installation
 
    pip install speciesot
 
+To create a virtual environment with all required dependencies, we recommend using Poetry:
+
+.. code-block::
+
+   poetry install
+
 
 Requirements
 ------------
