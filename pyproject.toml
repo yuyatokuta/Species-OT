@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "speciesot"
-version = "0.1.0"
-description = "Still in development."
+version = "0.2.0"
+description = "Geometric inference of cross-species transcriptome correspondence using Gromov–Wasserstein optimal transport."
 authors = ["Yuya Tokuta"]
 readme = "README.md"
 

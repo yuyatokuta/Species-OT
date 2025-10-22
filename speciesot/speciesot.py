@@ -170,14 +170,14 @@ def _plot_gene_expression(
     # Set labels based on the data option
     ylabel = "log-normalized expression level"
     xlabel = ""
-    if data_option == "dataset2":
-        ylabel = "log2(RP100K+1)"
-        xlabel = "Single-cells"
-        ax.set_ylim(0, 8)
     if data_option == "dataset1":
         ylabel = "log2(RPM+1)"
         xlabel = "Sampling timing"
         ax.set_ylim(0, 14)
+    elif data_option == "dataset2":
+        ylabel = "log2(RP100K+1)"
+        xlabel = "Single-cells"
+        ax.set_ylim(0, 8)
 
     if show_ylabel:
         ax.set_ylabel(ylabel)
@@ -227,7 +227,7 @@ def _plot_gene_expression_dataset1(
     formatted_gene_name = _format_gene_name(gene_name, format_type)
     ax.set_title(f"{spe_dict[species_name]} {formatted_gene_name}", fontsize=title_fontsize)
     
-    if species_name == "Ms":
+    if species_name == "mouse":
         clean_labels = [label.split("#")[0] for label in cells[species_name][::2]]
     else:
         clean_labels = [label.split("1")[0] for label in cells[species_name][::2]]
@@ -723,7 +723,7 @@ class Data(Config):
         Function to check gene expression levels for a given species and genes
 
         Args:
-            - species (str): The species labels ("Hs” etc. Not "Human")
+            - species (str): The species labels ("human” etc.)
             - gene(str): The gene name to check gene expression levels for.
             - threshold(float, optimal): If provided, a horizontal line at y=threshold 
             will be added to the plot. Defaults to None.
@@ -950,15 +950,12 @@ class SpeciesOT(Data):
         ax.set_ylabel("Frequency")
         ax.legend(self.species_labels)
 
-        if data_pattern == "Nakamura":
+        if data_pattern == "dataset2":
             ax.set_xlim(0, 8)
             ax.set_ylim(0, 1200)
-        elif data_pattern == "Fujiwara":
+        elif data_pattern == "dataset1":
             ax.set_xlim(0, 14)
             ax.set_ylim(0, 600)
-        elif data_pattern == "Nakamura_downsampled":
-            ax.set_xlim(0, 14)
-            ax.set_ylim(0, 800)
         else:
             print("--")
 
@@ -989,12 +986,7 @@ class SpeciesOT(Data):
         ax.legend(self.species_labels)
         ax.axvline(x=self.threshold, color="red")
 
-        if data_pattern == "Nakamura":
-            ax.text(self.threshold * 1.05, 1750, f"log2(RP100K+1)={self.threshold}")
-            ax.set_xlim(0, 8)
-            ax.set_ylim(0, 2000)
-            
-        elif data_pattern == "Fujiwara":
+        if data_pattern == "dataset1":
             if max_or_med == "max":
                 ax.text(self.threshold * 1.05, 600, "log2(RPM+1)=" + str(self.threshold))
                 ax.set_ylim(0, 800)
@@ -1004,7 +996,7 @@ class SpeciesOT(Data):
 
             ax.set_xlim(0, 14)
 
-        elif data_pattern == "Nakamura_downsampled":
+        elif data_pattern == "dataset2":
             ax.text(self.threshold * 1.05, 600, "log2(RPM+1)=" + str(self.threshold))
             ax.set_xlim(0, 14)
             ax.set_ylim(0, 800)
@@ -1129,19 +1121,13 @@ class SpeciesOT(Data):
             >>> spe_ot.visualization()
         """
         if (
-            self.data_option == "nakamura"
-            or self.data_option == "nakamura2"
-            or self.data_option == "nakamura3"
-            or self.data_option == "dataset2"
+            self.data_option == "dataset2"
         ):
-            data_pattern = "Nakamura"
+            data_pattern = "dataset2"
         elif (
-            self.data_option == "fujiwara"
-            or self.data_option == "dataset1"
+            self.data_option == "dataset1"
         ):
-            data_pattern = "Fujiwara"
-        elif self.data_option == "nakamura_downsampled":
-            data_pattern = "Nakamura_downsampled"
+            data_pattern = "dataset1"
 
         # Obtain maximum and median expression levels for each gene
         maxvalue, medvalue = self._obtain_maximum_and_median_gene_expression_level()
@@ -1568,7 +1554,7 @@ class SpeciesOT(Data):
         Args:
             - comparison (str): Compared to when all genes were targeted ("all_gene"), or compared to when only transcription factor genes were targeted ("transcription_factors")
             - labeled_genes (dict): A list of genes to be labeled on the scatter plot, grouped by species
-            - spe_gene_dict (dict): Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
+            - spe_gene_dict (dict): Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["human"] = "all_capitalized_italic"
 
         Outputs:
             - figure
@@ -1655,7 +1641,7 @@ class SpeciesOT(Data):
         Args:
             - comparison (str): Compared to when all genes were targeted ("all_gene"), or compared to when only transcription factor genes were targeted ("transcription_factors")
             - labeled_genes (dict): A list of genes to be labeled on the scatter plot, grouped by species
-            - spe_gene_dict (dict): Gene name notation for each species. ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
+            - spe_gene_dict (dict): Gene name notation for each species. ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["human"] = "all_capitalized_italic"
 
         Outputs:
             - figure
@@ -1858,17 +1844,13 @@ class SpeciesOT(Data):
             ax.set_xlabel("Maximum expression level")
             ax.axvline(x=self.threshold, color="red")
             if (
-                self.data_option == "nakamura"
-                or self.data_option == "nakamura2"
-                or self.data_option == "nakamura3"
-                or self.data_option == "dataset2"
+                self.data_option == "dataset2"
             ):
                 ax.text(self.threshold * 1.05, 100, f"log2(RP100K+1)={self.threshold}")
                 ax.set_ylim(0, 120)
                 ax.set_xlim(0, 8)
             elif (
-                self.data_option == "fujiwara"
-                or self.data_option == "dataset1"
+                self.data_option == "dataset1"
             ):
                 ax.text(self.threshold * 1.05, 100, f"log2(RPM+1)={self.threshold}")
                 ax.set_ylim(0, 120)
@@ -1929,15 +1911,11 @@ class SpeciesOT(Data):
             >>> spe_ot = spe_ot.pca()
         """
         if (
-            self.data_option == "fujiwara"
-            or self.data_option == "fujiwara2"
-            or self.data_option == "dataset1"
+            self.data_option == "dataset1"
         ):
             self.pca_dim = 2
         elif (
-            self.data_option == "nakamura_downsampled" 
-            or self.data_option == "nakamura_downsampled2"
-            or self.data_option == "dataset2"
+            self.data_option == "dataset2"
         ):
             self.pca_dim = 2
         elif self.data_option == "custom":
@@ -2174,69 +2152,68 @@ class SpeciesOT(Data):
         
         This is used in SpeciesoT class function "visualize_pca"
         """
-        if self.data_option != "nakamura_downsampled" and self.data_option != "ebisuya":
-            target_labels = self._set_target_labels(target_labels_opt)
+        target_labels = self._set_target_labels(target_labels_opt)
 
-            hvlabel_masked = {}
-            for spe in self.species:
-                hvlabel_masked[spe] = [
-                    label if label in target_labels[spe] else None for label in self.hvlabel[spe]
-                ]
+        hvlabel_masked = {}
+        for spe in self.species:
+            hvlabel_masked[spe] = [
+                label if label in target_labels[spe] else None for label in self.hvlabel[spe]
+            ]
 
-            # Create subplots: 1 row, 2 columns
-            fig = make_subplots(
-                rows=1,
-                cols=2,
-                subplot_titles=(
-                    f"{spe1}",
-                    f"{spe2}",
-                ),
-            )
+        # Create subplots: 1 row, 2 columns
+        fig = make_subplots(
+            rows=1,
+            cols=2,
+            subplot_titles=(
+                f"{spe1}",
+                f"{spe2}",
+            ),
+        )
 
-            # Adding scatter plot for the first species in the first subplot with labels
-            fig.add_trace(
-                go.Scatter(
-                    x=self.pca_embedding[spe1][:, 0],
-                    y=self.pca_embedding[spe1][:, 1],
-                    mode="markers+text",
-                    name=spe1,
-                    marker=dict(color="red"),
-                    text=hvlabel_masked[spe1],  # Add labels for each point
-                    textposition="top center",
-                ),
-                row=1,
-                col=1,
-            )
+        # Adding scatter plot for the first species in the first subplot with labels
+        fig.add_trace(
+            go.Scatter(
+                x=self.pca_embedding[spe1][:, 0],
+                y=self.pca_embedding[spe1][:, 1],
+                mode="markers+text",
+                name=spe1,
+                marker=dict(color="red"),
+                text=hvlabel_masked[spe1],  # Add labels for each point
+                textposition="top center",
+            ),
+            row=1,
+            col=1,
+        )
 
-            # Adding scatter plot for the second species in the second subplot with labels
-            fig.add_trace(
-                go.Scatter(
-                    x=self.pca_embedding[spe2][:, 0],
-                    y=self.pca_embedding[spe2][:, 1],
-                    mode="markers+text",
-                    name=spe2,
-                    marker=dict(color="blue"),
-                    text=hvlabel_masked[spe2],  # Add labels for each point
-                    textposition="top center",
-                ),
-                row=1,
-                col=2,
-            )
+        # Adding scatter plot for the second species in the second subplot with labels
+        fig.add_trace(
+            go.Scatter(
+                x=self.pca_embedding[spe2][:, 0],
+                y=self.pca_embedding[spe2][:, 1],
+                mode="markers+text",
+                name=spe2,
+                marker=dict(color="blue"),
+                text=hvlabel_masked[spe2],  # Add labels for each point
+                textposition="top center",
+            ),
+            row=1,
+            col=2,
+        )
 
-            # Update xaxis and yaxis properties for both subplots
-            fig.update_xaxes(title_text="PC1", row=1, col=1)
-            fig.update_yaxes(title_text="PC2", row=1, col=1)
-            fig.update_xaxes(title_text="PC1", row=1, col=2)
-            fig.update_yaxes(title_text="PC2", row=1, col=2)
+        # Update xaxis and yaxis properties for both subplots
+        fig.update_xaxes(title_text="PC1", row=1, col=1)
+        fig.update_yaxes(title_text="PC2", row=1, col=1)
+        fig.update_xaxes(title_text="PC1", row=1, col=2)
+        fig.update_yaxes(title_text="PC2", row=1, col=2)
 
-            # Update the layout and display the figure
-            fig.update_layout(
-                height=600,
-                width=1200,
-                title_text="PCA(pointcloud in gene expression space)",
-            )
+        # Update the layout and display the figure
+        fig.update_layout(
+            height=600,
+            width=1200,
+            title_text="PCA(pointcloud in gene expression space)",
+        )
 
-            plt.show()    
+        plt.show()    
 
 
 
@@ -2247,73 +2224,72 @@ class SpeciesOT(Data):
         
         This is used in SpeciesoT class function "visualize_pca"
         """
-        if self.data_option != "nakamura_downsampled" and self.data_option != "ebisuya":
-            target_labels = self._set_target_labels("5_genes")
+        target_labels = self._set_target_labels("5_genes")
 
-            # Update the layout of the plot with proper axis labels
-            fig = make_subplots(
-                rows=1,
-                cols=2,
-                specs=[[{"type": "scatter3d"}, {"type": "scatter3d"}]],
-                subplot_titles=(f"{spe1}", f"{spe2}"),
-            )
+        # Update the layout of the plot with proper axis labels
+        fig = make_subplots(
+            rows=1,
+            cols=2,
+            specs=[[{"type": "scatter3d"}, {"type": "scatter3d"}]],
+            subplot_titles=(f"{spe1}", f"{spe2}"),
+        )
 
-            # Update the layout of the plot with proper axis labels
-            if color_opt == "assign":
-                colors_spe1 = assign_colors(self.hvlabel[spe1], target_labels[spe1], "grey")
-            else:
-                colors_spe1 = "red"
+        # Update the layout of the plot with proper axis labels
+        if color_opt == "assign":
+            colors_spe1 = assign_colors(self.hvlabel[spe1], target_labels[spe1], "grey")
+        else:
+            colors_spe1 = "red"
 
-            fig.add_trace(
-                go.Scatter3d(
-                    x=self.pca_embedding[spe1][:, 0],
-                    y=self.pca_embedding[spe1][:, 1],
-                    z=self.pca_embedding[spe1][:, 2],
-                    mode="markers",
-                    marker=dict(
-                        size=5,
-                        color=colors_spe1,
-                    ),
-                    name=spe1,
-                    text=self.hvlabel[spe1],  # Add hover labels for each point
-                    hoverinfo="text",  # Customize hover to show only the text
+        fig.add_trace(
+            go.Scatter3d(
+                x=self.pca_embedding[spe1][:, 0],
+                y=self.pca_embedding[spe1][:, 1],
+                z=self.pca_embedding[spe1][:, 2],
+                mode="markers",
+                marker=dict(
+                    size=5,
+                    color=colors_spe1,
                 ),
-                row=1,
-                col=1,
-            )
+                name=spe1,
+                text=self.hvlabel[spe1],  # Add hover labels for each point
+                hoverinfo="text",  # Customize hover to show only the text
+            ),
+            row=1,
+            col=1,
+        )
 
-            # Update the layout of the plot with proper axis labels
-            if color_opt == "assign":
-                colors_spe2 = assign_colors(self.hvlabel[spe2], target_labels[spe2], "grey")
-            else:
-                colors_spe2 = "blue"
+        # Update the layout of the plot with proper axis labels
+        if color_opt == "assign":
+            colors_spe2 = assign_colors(self.hvlabel[spe2], target_labels[spe2], "grey")
+        else:
+            colors_spe2 = "blue"
 
-            fig.add_trace(
-                go.Scatter3d(
-                    x=self.pca_embedding[spe2][:, 0],
-                    y=self.pca_embedding[spe2][:, 1],
-                    z=self.pca_embedding[spe2][:, 2],
-                    mode="markers",
-                    marker=dict(
-                        size=5,
-                        color=colors_spe2,
-                    ),
-                    name=spe2,
-                    text=self.hvlabel[spe2],  # Add hover labels for each point
-                    hoverinfo="text",  # Customize hover to show only the text
+        fig.add_trace(
+            go.Scatter3d(
+                x=self.pca_embedding[spe2][:, 0],
+                y=self.pca_embedding[spe2][:, 1],
+                z=self.pca_embedding[spe2][:, 2],
+                mode="markers",
+                marker=dict(
+                    size=5,
+                    color=colors_spe2,
                 ),
-                row=1,
-                col=2,
-            )
-        
-            # Update the layout of the plot with proper axis labels
-            fig.update_layout(height=600, width=1200, title_text="PCA(pointclouds)")
+                name=spe2,
+                text=self.hvlabel[spe2],  # Add hover labels for each point
+                hoverinfo="text",  # Customize hover to show only the text
+            ),
+            row=1,
+            col=2,
+        )
+    
+        # Update the layout of the plot with proper axis labels
+        fig.update_layout(height=600, width=1200, title_text="PCA(pointclouds)")
 
-            fig.update_scenes(
-                xaxis_title_text="PC1", yaxis_title_text="PC2", zaxis_title_text="PC3"
-            )
+        fig.update_scenes(
+            xaxis_title_text="PC1", yaxis_title_text="PC2", zaxis_title_text="PC3"
+        )
 
-            plt.show()       
+        plt.show()       
 
 
 
@@ -2388,38 +2364,6 @@ class SpeciesOT(Data):
                 self.dis_mat[spe] = dis_mat_ori[spe] / np.mean(
                     dis_mat_ori[spe]
                 )  
-
-        # elif self.metric_option == "weighted":
-        #     iPSC = 1.0
-        #     PGCLC = 1.0
-
-        #     w_12 = _generate_weights(12, [], iPSC, PGCLC)
-        #     w_10 = _generate_weights(12, [4, 5], iPSC, PGCLC)
-        #     w_8 = _generate_weights(12, [2, 3, 10, 11], iPSC, PGCLC)
-
-        #     dis_mat_ori = {}
-        #     self.dis_mat = {}
-
-        #     for spe in self.species:
-        #         if self.dismat_option == "original":
-        #             mat = (
-        #                 self.adata[spe].obsm["normalized_log_select_preprocessed_masked"].T
-        #             )  
-        #         elif self.dismat_option == "pca":
-        #             mat = self.pca_embedding[spe]  
-
-        #         if spe == "Hs" or spe == "Pt" or spe == "Pa":
-        #             weights = w_12
-        #         elif spe == "Mf":
-        #             weights = w_10
-        #         elif spe == "Ms":
-        #             weights = w_8
-
-        #         dis_mat_ori[spe] = _weighted_cdist(mat, w=weights)
-        #         self.dis_mat[spe] = dis_mat_ori[spe] / np.mean(
-        #             dis_mat_ori[spe]
-        #         )  
-
 
         return self
     
@@ -3334,7 +3278,7 @@ class SpeciesOT(Data):
         Function to generate dashboards
 
         Args:
-            - target_species_pairs (str): "Hs_Ms” etc. (Use “Species” instead of "Species_labels")
+            - target_species_pairs (str): "human_mouse” etc. (Use “Species” instead of "Species_labels")
             - gene_list (list): List of genes to be analyzed
             - n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
         
@@ -3410,8 +3354,8 @@ class SpeciesOT(Data):
         Function to create line graphs of gene expression levels arranged in a grid where each row corresponds to a species and the number of columns is determined by the length of gene lists.
         
         Args:
-            - target_species_pairs (string): "Hs_Ms” etc. Not "Human_Mouse".
-            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
+            - target_species_pairs (string): "human_mouse” etc.
+            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["human"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
 
@@ -3955,11 +3899,11 @@ class SpeciesOT(Data):
         Function to creat a heatmap of the expression levels of the target genes and the corresponding genes within nth for given genes
 
         Args:
-            - target_species_pairs (string): "Hs_Ms” etc. Not "Human_Mouse".
-            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
+            - target_species_pairs (string): "human_mouse” etc.
+            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["mouse"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
-            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
+            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting
             - raw_return_opt (bool): Whether to return raw data
         
         Outputs:
@@ -4018,11 +3962,11 @@ class SpeciesOT(Data):
         Function to creat a heatmap of the expression levels of the target genes and the corresponding genes within nth for given genes
 
         Args:
-            - target_species_pairs (string): "Hs_Ms” etc. Not "Human_Mouse".
-            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["Ms"] = "capitalized_italic", spe_gene_dict["Hs"] = "all_capitalized_italic"
+            - target_species_pairs (string): "human_mouse” etc.
+            - spe_gene_dict (dict) : Gene name notation for each species.  ex. spe_gene_dict["mouse"] = "capitalized_italic", spe_gene_dict["human"] = "all_capitalized_italic"
             - target_genes (list): List of genes to be analyzed
             - top_n (int): For each gene you want to analyze, how many corresponding genes do you want to find?
-            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting (only for fujiwara_3) 
+            - dataset1_bool (bool) : Whether to correct the data to full time series data before plotting
             - raw_return_opt (bool): Whether to return raw data
         
         Outputs:
