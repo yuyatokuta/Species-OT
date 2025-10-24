@@ -60,8 +60,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#speciesot.speciesot.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#speciesot.speciesot.Data.read_csv"><code class="docutils literal notranslate"><span class="pre">Data.read_csv()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#speciesot.speciesot.Data.normalization"><code class="docutils literal notranslate"><span class="pre">Data.normalization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#speciesot.speciesot.Data.check_gene_exp"><code class="docutils literal notranslate"><span class="pre">Data.check_gene_exp()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#speciesot.speciesot.Data.plot_read"><code class="docutils literal notranslate"><span class="pre">Data.plot_read()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#speciesot.speciesot.Data.read_tf"><code class="docutils literal notranslate"><span class="pre">Data.read_tf()</span></code></a></li>
 </ul>
 </li>
@@ -103,106 +101,23 @@
 <dt class="sig sig-object py" id="speciesot.speciesot.Data">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">speciesot.speciesot.</span></span><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="speciesot.speciesot.Config.html#speciesot.speciesot.Config" title="speciesot.speciesot.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a></p>
-<p>Class for retrieving data.</p>
+<p>Retrieve and store dataset parameters.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.Data.read_csv">
-<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_csv" title="Link to this definition"></a></dt>
-<dd><p>Read csv files</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>self</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">()</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_csv" title="Link to this definition"></a></dt>
+<dd><p>Read input CSVs and initialize AnnData objects.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.Data.normalization">
 <span class="sig-name descname"><span class="pre">normalization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.normalization" title="Link to this definition"></a></dt>
-<dd><p>Function to reduce noise and normalize data</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p>self</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Outputs:</dt><dd><ul class="simple">
-<li><p>Shape of adata after noise reduction and normalization</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">normalization</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="speciesot.speciesot.Data.check_gene_exp">
-<span class="sig-name descname"><span class="pre">check_gene_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.check_gene_exp" title="Link to this definition"></a></dt>
-<dd><p>Function to check gene expression levels for a given species and genes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>species</strong> (<em>-</em>) – The species labels</p></li>
-<li><p><strong>gene</strong> (<em>-</em>) – The gene name to check gene expression levels for.</p></li>
-<li><p><strong>threshold</strong> (<em>-</em>) – If provided, a horizontal line at y=threshold</p></li>
-<li><p><strong>None.</strong> (<em>will be added to the plot. Defaults to</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">gene_exp_check</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="speciesot.speciesot.Data.plot_read">
-<span class="sig-name descname"><span class="pre">plot_read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.plot_read" title="Link to this definition"></a></dt>
-<dd><p>Function to check gene expression data</p>
-<dl class="simple">
-<dt>Outputs:</dt><dd><ul class="simple">
-<li><p>Shape of Polars DataFrame with cell names added to the beginning of gene expression data</p></li>
-<li><p>Shape of gene expression Pandas DataFrame</p></li>
-<li><p>Simplified version of the expression matrix</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">plot_read</span><span class="p">()</span>
-</pre></div>
-</div>
+<dd><p>Normalize expression data and reduce noise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="speciesot.speciesot.Data.read_tf">
 <span class="sig-name descname"><span class="pre">read_tf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#speciesot.speciesot.Data.read_tf" title="Link to this definition"></a></dt>
-<dd><p>Read human transcription factors genes from hTF.txt in TFs directory</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p>self</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Outputs:</dt><dd><ul class="simple">
-<li><p>gene_selection.shape</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_tf</span><span class="p">()</span>
-</pre></div>
-</div>
+<dd><p>Read human transcription factor genes from TFs/hTF.txt.</p>
 </dd></dl>
 
 </dd></dl>
