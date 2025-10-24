@@ -74,7 +74,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Chained-Processing">Chained Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#End">End</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#End-of-tutorial">End of tutorial</a></li>
 </ul>
 </li>
 </ul>
@@ -107,23 +107,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import jupyter_black</span>
-
-<span class="c1"># jupyter_black.load()</span>
-</pre></div>
-</div>
-</div>
-<section id="Dataset-2">
+  <section id="Dataset-2">
 <h1>Dataset 2<a class="headerlink" href="#Dataset-2" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p>Please extract dataset2.zip into the directory “data”</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data_option = &quot;dataset1&quot;</span>
@@ -134,7 +124,7 @@
 <section id="Initial-setup">
 <h2>Initial setup<a class="headerlink" href="#Initial-setup" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">speciesot</span><span class="w"> </span><span class="kn">import</span> <span class="n">configure_platform</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">SpeciesOT</span>
@@ -142,7 +132,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">configure_platform</span><span class="p">()</span>
@@ -162,7 +152,7 @@ JAX is configured to use: METAL
 <section id="Computational-parameters">
 <h3>Computational parameters<a class="headerlink" href="#Computational-parameters" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
@@ -176,17 +166,11 @@ JAX is configured to use: METAL
     <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.4</span>
     <span class="n">threshold_surer</span> <span class="o">=</span> <span class="mf">2.5</span>
     <span class="n">high_epsilon</span> <span class="o">=</span> <span class="mf">0.1</span>
-
-<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
-    <span class="n">mask_option</span> <span class="o">=</span> <span class="s2">&quot;one_time_point_data&quot;</span>
-    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.4</span>
-    <span class="n">threshold_surer</span> <span class="o">=</span> <span class="mf">2.5</span>
-    <span class="n">high_epsilon</span> <span class="o">=</span> <span class="mf">0.01</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -197,7 +181,7 @@ JAX is configured to use: METAL
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
@@ -216,11 +200,6 @@ JAX is configured to use: METAL
         <span class="s2">&quot;Macaque_ESC(AITS)&quot;</span><span class="p">,</span>
         <span class="s2">&quot;Mouse_EpiLC&quot;</span><span class="p">,</span>
     <span class="p">]</span>
-
-<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
-    <span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;animal1&quot;</span><span class="p">,</span> <span class="s2">&quot;animal2&quot;</span><span class="p">,</span> <span class="s2">&quot;animal3&quot;</span><span class="p">]</span>
-    <span class="n">species_pairs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">species_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Animal1&quot;</span><span class="p">,</span> <span class="s2">&quot;Animal2&quot;</span><span class="p">,</span> <span class="s2">&quot;Animal3&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -229,7 +208,7 @@ JAX is configured to use: METAL
 <section id="Initialize-the-Config()-class">
 <h2>Initialize the Config() class<a class="headerlink" href="#Initialize-the-Config()-class" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;dataset1&quot;</span><span class="p">:</span>
@@ -240,7 +219,7 @@ JAX is configured to use: METAL
         <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
         <span class="s2">&quot;original&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span> <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
         <span class="n">mask_option</span><span class="p">,</span>
         <span class="n">iterations</span><span class="p">,</span>
         <span class="n">threshold_eps</span><span class="p">,</span>
@@ -262,7 +241,7 @@ JAX is configured to use: METAL
         <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
         <span class="s2">&quot;original&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span> <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
         <span class="n">mask_option</span><span class="p">,</span>
         <span class="n">iterations</span><span class="p">,</span>
         <span class="n">threshold_eps</span><span class="p">,</span>
@@ -275,28 +254,6 @@ JAX is configured to use: METAL
         <span class="n">species_pairs</span><span class="o">=</span><span class="n">species_pairs</span><span class="p">,</span>
         <span class="n">species_labels</span><span class="o">=</span><span class="n">species_labels</span><span class="p">,</span>
     <span class="p">)</span>
-
-<span class="k">elif</span> <span class="n">data_option</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
-        <span class="n">data_option</span><span class="o">=</span><span class="s2">&quot;custom&quot;</span><span class="p">,</span>
-        <span class="n">mouse_option</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
-        <span class="n">gene_option</span><span class="o">=</span><span class="s2">&quot;distinct&quot;</span><span class="p">,</span>
-        <span class="n">threshold_option</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
-        <span class="n">metric_option</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
-        <span class="n">dismat_option</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">,</span>
-        <span class="n">gwot_option</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
-        <span class="n">mask_option</span><span class="o">=</span><span class="n">mask_option</span><span class="p">,</span>
-        <span class="n">iterations</span><span class="o">=</span><span class="n">iterations</span><span class="p">,</span>
-        <span class="n">threshold_eps</span><span class="o">=</span><span class="n">threshold_eps</span><span class="p">,</span>
-        <span class="n">low_epsilon</span><span class="o">=</span><span class="n">low_epsilon</span><span class="p">,</span>
-        <span class="n">high_epsilon</span><span class="o">=</span><span class="n">high_epsilon</span><span class="p">,</span>
-        <span class="n">threshold_tol</span><span class="o">=</span><span class="n">threshold_tol</span><span class="p">,</span>
-        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
-        <span class="n">threshold_surer</span><span class="o">=</span><span class="n">threshold_surer</span><span class="p">,</span>
-        <span class="n">species</span><span class="o">=</span><span class="n">species</span><span class="p">,</span>
-        <span class="n">species_pairs</span><span class="o">=</span><span class="n">species_pairs</span><span class="p">,</span>
-        <span class="n">species_labels</span><span class="o">=</span><span class="n">species_labels</span><span class="p">,</span>
-    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -304,7 +261,7 @@ JAX is configured to use: METAL
 <section id="Initialize-the-Data()-class">
 <h2>Initialize the Data() class<a class="headerlink" href="#Initialize-the-Data()-class" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -314,7 +271,7 @@ JAX is configured to use: METAL
 <section id="Read-CSV-file">
 <h3>Read CSV file<a class="headerlink" href="#Read-CSV-file" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">()</span>
@@ -325,7 +282,7 @@ JAX is configured to use: METAL
 <section id="Geometrization-steps-(noise-reduction-and-total-count-normalization)">
 <h3>Geometrization steps (noise reduction and total count normalization)<a class="headerlink" href="#Geometrization-steps-(noise-reduction-and-total-count-normalization)" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">normalization</span><span class="p">()</span>
@@ -339,50 +296,41 @@ JAX is configured to use: METAL
 <div class="highlight"><pre>
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 877ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 414ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 727ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 636ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 453ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 548ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 884ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 211ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 9s 924ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 9s 907ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 399ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 117ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 </pre></div></div>
 </div>
 </section>
 <section id="Geometrization-step-(gene-selection-using-human-transcription-factors)">
 <h3>Geometrization step (gene selection using human transcription factors)<a class="headerlink" href="#Geometrization-step-(gene-selection-using-human-transcription-factors)" title="Link to this heading"></a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">read_tf</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-#genes in hTF.txt
-1639
-</pre></div></div>
-</div>
 </section>
 </section>
 <section id="Initialize-the-SpeciesOT()-class">
 <h2>Initialize the SpeciesOT() class<a class="headerlink" href="#Initialize-the-SpeciesOT()-class" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">SpeciesOT</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -392,7 +340,7 @@ log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int6
 <section id="Geometrization-step-(filtering)">
 <h3>Geometrization step (filtering)<a class="headerlink" href="#Geometrization-step-(filtering)" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">()</span>
@@ -403,7 +351,7 @@ log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int6
 <section id="Geometrization-step-(distance-matrix-computation)">
 <h3>Geometrization step (distance matrix computation)<a class="headerlink" href="#Geometrization-step-(distance-matrix-computation)" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">calculate_gene_distance_matrix</span><span class="p">()</span>
@@ -414,7 +362,7 @@ log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int6
 <section id="Entropically-regularized-Gromov-Wasserstein-optimal-transport">
 <h3>Entropically regularized Gromov-Wasserstein optimal transport<a class="headerlink" href="#Entropically-regularized-Gromov-Wasserstein-optimal-transport" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">gromov_wasserstein_ot</span><span class="p">()</span>
@@ -428,11 +376,11 @@ log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int6
 <div class="highlight"><pre>
 Platform &#39;METAL&#39; is experimental and not all JAX functionality may be correctly supported!
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-W0000 00:00:1761130318.050345 5349321 mps_client.cc:510] WARNING: JAX Apple GPU support is experimental and not all JAX functionality is correctly supported!
-I0000 00:00:1761130318.062600 5349321 service.cc:145] XLA service 0x120f3e7f0 initialized for platform METAL (this does not guarantee that XLA will be used). Devices:
-I0000 00:00:1761130318.062614 5349321 service.cc:153]   StreamExecutor device (0): Metal, &lt;undefined&gt;
-I0000 00:00:1761130318.064067 5349321 mps_client.cc:406] Using Simple allocator.
-I0000 00:00:1761130318.064080 5349321 mps_client.cc:384] XLA backend will use up to 103078739968 bytes on device 0 for SimpleAllocator.
+W0000 00:00:1761310795.485427 6890266 mps_client.cc:510] WARNING: JAX Apple GPU support is experimental and not all JAX functionality is correctly supported!
+I0000 00:00:1761310795.495887 6890266 service.cc:145] XLA service 0x3a4b22450 initialized for platform METAL (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1761310795.495894 6890266 service.cc:153]   StreamExecutor device (0): Metal, &lt;undefined&gt;
+I0000 00:00:1761310795.497055 6890266 mps_client.cc:406] Using Simple allocator.
+I0000 00:00:1761310795.497067 6890266 mps_client.cc:384] XLA backend will use up to 103078739968 bytes on device 0 for SimpleAllocator.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -452,7 +400,7 @@ epsilon = 0.1000000 converged
 <section id="Normalized-optimal-transport-plan">
 <h3>Normalized optimal transport plan<a class="headerlink" href="#Normalized-optimal-transport-plan" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span> <span class="o">=</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">normalize_otp</span><span class="p">()</span>
@@ -463,7 +411,7 @@ epsilon = 0.1000000 converged
 <section id="Transcriptomic-discrepancy">
 <h3>Transcriptomic discrepancy<a class="headerlink" href="#Transcriptomic-discrepancy" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_transcriptomic_discrepancy</span><span class="p">()</span>
@@ -474,14 +422,14 @@ epsilon = 0.1000000 converged
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/tutorial2_32_0.png" src="_images/tutorial2_32_0.png" />
+<img alt="_images/tutorial2_31_0.png" src="_images/tutorial2_31_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/tutorial2_32_1.png" src="_images/tutorial2_32_1.png" />
+<img alt="_images/tutorial2_31_1.png" src="_images/tutorial2_31_1.png" />
 </div>
 </div>
 </section>
@@ -489,7 +437,7 @@ epsilon = 0.1000000 converged
 <section id="Chained-Processing">
 <h2>Chained Processing<a class="headerlink" href="#Chained-Processing" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">.</span><span class="n">read_csv</span><span class="p">()</span><span class="o">.</span><span class="n">normalization</span><span class="p">()</span><span class="o">.</span><span class="n">read_tf</span><span class="p">()</span>
@@ -503,28 +451,26 @@ epsilon = 0.1000000 converged
 <div class="highlight"><pre>
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 538ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 200ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 708ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 584ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 601ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 529ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 391ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 702ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 10s 021ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 10s 077ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 151ms&#39;, &#39;solver&#39;: &#39;full&#39;}
-#genes in hTF.txt
-1639
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 071ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spe_ot2</span> <span class="o">=</span> <span class="p">(</span>
@@ -550,19 +496,19 @@ epsilon = 0.1000000 converged
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/tutorial2_35_1.png" src="_images/tutorial2_35_1.png" />
+<img alt="_images/tutorial2_34_1.png" src="_images/tutorial2_34_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/tutorial2_35_2.png" src="_images/tutorial2_35_2.png" />
+<img alt="_images/tutorial2_34_2.png" src="_images/tutorial2_34_2.png" />
 </div>
 </div>
 </section>
-<section id="End">
-<h2>End<a class="headerlink" href="#End" title="Link to this heading"></a></h2>
+<section id="End-of-tutorial">
+<h2>End of tutorial<a class="headerlink" href="#End-of-tutorial" title="Link to this heading"></a></h2>
 </section>
 </section>
 

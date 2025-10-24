@@ -14,11 +14,6 @@ Geometric inference of cross-species transcriptome correspondence using Gromov-W
 $ pip install speciesot
 ```
 
-To create a virtual environment with all required dependencies, we recommend using Poetry:
-```sh
-$ poetry install
-```
-
 ## Requirements
 
 - Python3
