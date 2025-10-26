@@ -28,4 +28,4 @@ The tutorial is available [here](https://yuyatokuta.github.io/Species-OT/).
 ## Preprint
 
 Please see the following paper:
-[Y. Tokuta et al. Geometric inference of cross-species transcriptome correspondence using Gromov-Wasserstein optimal transport. bioRxiv](https://doi.org/)
+[Y. Tokuta et al. Geometric inference of cross-species transcriptome correspondence using Gromov-Wasserstein optimal transport. bioRxiv](https://doi.org/10.1101/2025.10.23.684069)

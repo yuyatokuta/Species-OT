@@ -1,5 +1,6 @@
 project = "speciesot"
 author = "Yuya Tokuta"
+copyright = "2025, Yuya Tokuta"
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -23,8 +24,6 @@ autodoc_default_options = {
     "inherited-members": True,
     "show-inheritance": True,
     "member-order": "bysource",
-    # もし非公開も出したければ:
-    # "private-members": True,
 }
 
 
