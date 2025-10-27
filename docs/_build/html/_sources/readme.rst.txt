@@ -22,4 +22,4 @@ Click `here <https://developer.apple.com/metal/jax/>`__ to learn how to utilize 
 
 Preprint
 --------
-Please see the following paper: `Y. Tokuta et al. Geometric inference of cross-species transcriptome correspondence using Gromov-Wasserstein optimal transport. bioRxiv <https://www.doi.org>`_.
+Please see the following paper: `Y. Tokuta et al. Geometric inference of cross-species transcriptome correspondence using Gromov-Wasserstein optimal transport. bioRxiv <https://doi.org/10.1101/2025.10.23.684069>`_.

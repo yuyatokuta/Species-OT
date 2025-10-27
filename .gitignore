@@ -38,6 +38,12 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# --- Sphinx documentation ---
+docs/_build/
+docs/_autosummary/
+*.doctree
+*.pickle
+
 # --- Misc ---
 tmp/
 data/
