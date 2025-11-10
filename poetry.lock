@@ -20,36 +20,35 @@ scipy = "*"
 
 [[package]]
 name = "anndata"
-version = "0.11.1"
+version = "0.11.4"
 description = "Annotated data."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 markers = "sys_platform == \"darwin\" or sys_platform == \"linux\""
 files = [
-    {file = "anndata-0.11.1-py3-none-any.whl", hash = "sha256:2c974e54434548b9c7a415fe9a3082aac76a7233a9b9e785830b9c9161f673ac"},
-    {file = "anndata-0.11.1.tar.gz", hash = "sha256:36bff9a85276fc5f1b9fd01f15aff9aa49408129985f42e0fca4e2c5b7fa909f"},
+    {file = "anndata-0.11.4-py3-none-any.whl", hash = "sha256:fefebb1480316dfa5a23924aa9f74781d447484421bb0c788b0b2ca5e3b339d2"},
+    {file = "anndata-0.11.4.tar.gz", hash = "sha256:4ce08d09d2ccb5f37d32790363bbcc7fc1b79863842296ae4badfaf48c736e24"},
 ]
 
 [package.dependencies]
 array-api-compat = ">1.4,<1.5 || >1.5"
-h5py = ">=3.6"
+h5py = ">=3.7"
 natsort = "*"
 numpy = ">=1.23"
-packaging = ">=20.0"
+packaging = ">=24.2"
 pandas = ">=1.4,<2.1.0rc0 || >2.1.0rc0,<2.1.2 || >2.1.2"
 scipy = ">1.8"
 
 [package.extras]
 cu11 = ["cupy-cuda11x"]
 cu12 = ["cupy-cuda12x"]
-dask = ["dask[array] (>=2022.09.2,<2024.8.dev0 || >=2024.10.dev0)"]
-dev = ["pytest-xdist", "setuptools-scm", "towncrier (>=24.8.0)"]
+dask = ["dask[array] (>=2022.09.2,<2024.8.dev0 || >=2024.10.dev0,<2025.2.0)"]
+dev = ["awkward (>=2.3)", "boltons", "dask[array] (>=2022.09.2,<2024.8.dev0 || >=2024.10.dev0,<2025.2.0)", "dask[distributed]", "filelock", "hatch-vcs", "httpx", "joblib", "loompy (>=3.0.5)", "matplotlib", "openpyxl", "pyarrow", "pytest (>=8.2,<8.3.4)", "pytest-cov (>=2.10)", "pytest-memray", "pytest-mock", "pytest-randomly", "pytest-xdist[psutil]", "scanpy (>=1.9.8)", "scikit-learn", "towncrier (>=24.8.0)", "zarr (<3)"]
 dev-doc = ["towncrier (>=24.8.0)"]
-dev-test = ["pytest-xdist"]
-doc = ["awkward (>=2.0.7)", "ipython", "myst-parser", "nbsphinx", "readthedocs-sphinx-search", "scanpydoc[theme,typehints] (>=0.14.1)", "sphinx (>=7.4.6)", "sphinx-autodoc-typehints (>=2.2.0)", "sphinx-book-theme (>=1.1.0)", "sphinx-copybutton", "sphinx-design (>=0.5.0)", "sphinx-issues", "sphinx-toolbox (>=3.8.0)", "sphinxext-opengraph", "towncrier (>=24.8.0)", "zarr"]
+doc = ["awkward (>=2.3)", "ipython", "myst-nb", "myst-parser", "readthedocs-sphinx-search", "scanpydoc[theme,typehints] (>=0.15.1)", "sphinx (>=8.2.1)", "sphinx-autodoc-typehints (>=2.2.0)", "sphinx-book-theme (>=1.1.0)", "sphinx-copybutton", "sphinx-design (>=0.5.0)", "sphinx-issues", "sphinx-toolbox (>=3.8.0)", "sphinxext-opengraph", "towncrier (>=24.8.0)", "zarr (<3)"]
 gpu = ["cupy"]
-test = ["awkward (>=2.3)", "boltons", "dask[array] (>=2022.09.2,<2024.8.dev0 || >=2024.10.dev0)", "dask[distributed]", "httpx", "joblib", "loompy (>=3.0.5)", "matplotlib", "openpyxl", "pyarrow", "pytest (>=8.2)", "pytest-cov (>=2.10)", "pytest-memray", "pytest-mock", "scanpy", "scikit-learn", "zarr (<3.0.0a0)"]
+test = ["awkward (>=2.3)", "boltons", "dask[array] (>=2022.09.2,<2024.8.dev0 || >=2024.10.dev0,<2025.2.0)", "dask[distributed]", "filelock", "httpx", "joblib", "loompy (>=3.0.5)", "matplotlib", "openpyxl", "pyarrow", "pytest (>=8.2,<8.3.4)", "pytest-cov (>=2.10)", "pytest-memray", "pytest-mock", "pytest-randomly", "pytest-xdist[psutil]", "scanpy (>=1.9.8)", "scikit-learn", "zarr (<3)"]
 
 [[package]]
 name = "appnope"
@@ -2673,57 +2672,57 @@ files = [
 
 [[package]]
 name = "scanpy"
-version = "1.10.3"
+version = "1.11.5"
 description = "Single-Cell Analysis in Python."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["main"]
 markers = "sys_platform == \"darwin\" or sys_platform == \"linux\""
 files = [
-    {file = "scanpy-1.10.3-py3-none-any.whl", hash = "sha256:d8fa60a6b7f8ab994fe70d2e5106d9b0b9980bf2f65d40f66a12a49db3dbc249"},
-    {file = "scanpy-1.10.3.tar.gz", hash = "sha256:0a644d8fa173ac1c62aed4255de7031bf7501c7ad4441cf6ce99cd638b32f880"},
+    {file = "scanpy-1.11.5-py3-none-any.whl", hash = "sha256:fcd383ddcf7acbf7c0ca232c25ad51b00aec9f8d2f7c8954b8c6ee0962257166"},
+    {file = "scanpy-1.11.5.tar.gz", hash = "sha256:b2ef5476dfb1144b7dd0fae90b0198699c7988e6b27f083904150642c7ba6b89"},
 ]
 
 [package.dependencies]
 anndata = ">=0.8"
-h5py = ">=3.1"
+h5py = ">=3.7.0"
 joblib = "*"
-legacy-api-wrap = ">=1.4"
-matplotlib = ">=3.6"
+legacy-api-wrap = ">=1.4.1"
+matplotlib = ">=3.7.5"
 natsort = "*"
-networkx = ">=2.7"
-numba = ">=0.56"
-numpy = ">=1.23"
+networkx = ">=2.7.1"
+numba = ">=0.57.1,<0.62.0rc1 || >0.62.0rc1"
+numpy = ">=1.24.1"
 packaging = ">=21.3"
-pandas = ">=1.5"
-patsy = "*"
-pynndescent = ">=0.5"
-scikit-learn = ">=0.24"
-scipy = ">=1.8"
-seaborn = ">=0.13"
-session-info = "*"
-statsmodels = ">=0.13"
+pandas = ">=1.5.3"
+patsy = "!=1.0.0"
+pynndescent = ">=0.5.13"
+scikit-learn = ">=1.1.3"
+scipy = ">=1.8.1"
+seaborn = ">=0.13.2"
+session-info2 = "*"
+statsmodels = ">=0.14.5"
 tqdm = "*"
-umap-learn = ">0.5.0"
+typing-extensions = {version = "*", markers = "python_version < \"3.13\""}
+umap-learn = ">=0.5.6"
 
 [package.extras]
 bbknn = ["bbknn"]
-dask = ["dask[array] (>=2022.09.2,<2024.8.0)"]
-dask-ml = ["dask-ml", "dask[array] (>=2022.09.2,<2024.8.0)"]
-dev = ["pre-commit", "setuptools-scm", "towncrier"]
-doc = ["dask", "igraph", "ipython (>=7.20)", "matplotlib (!=3.6.1)", "myst-nb (>=1)", "myst-parser (>=2)", "nbsphinx (>=0.9)", "readthedocs-sphinx-search", "sam-algorithm", "scanpydoc (>=0.14.1)", "setuptools", "sphinx (>=7)", "sphinx-autodoc-typehints (>=1.25.2)", "sphinx-book-theme (>=1.1.0)", "sphinx-copybutton", "sphinx-design", "sphinx-tabs", "sphinxcontrib-bibtex", "sphinxext-opengraph"]
+dask = ["anndata[dask]", "dask[array] (>=2022.09.2)"]
+dask-ml = ["anndata[dask]", "dask-ml", "dask[array] (>=2022.09.2)"]
+dev = ["scipy-stubs", "towncrier"]
+doc = ["anndata[dask]", "dask-ml", "dask[array] (>=2022.09.2)", "igraph", "igraph (>=0.10.8)", "ipython (>=7.20)", "leidenalg (>=0.9.0)", "myst-nb (>=1)", "myst-parser (>=2)", "nbsphinx (>=0.9)", "sam-algorithm", "scanpydoc (>=0.15.3)", "sphinx (>=8.2.3)", "sphinx-autodoc-typehints (>=1.25.2)", "sphinx-book-theme (>=1.1.0)", "sphinx-copybutton", "sphinx-design", "sphinx-issues (>=5.0.1)", "sphinx-tabs", "sphinxcontrib-bibtex", "sphinxext-opengraph"]
 harmony = ["harmonypy"]
-leiden = ["igraph (>=0.10)", "leidenalg (>=0.9.0)"]
-louvain = ["igraph", "louvain (>=0.6.0,!=0.6.2)"]
-magic = ["magic-impute (>=2.0)"]
+leiden = ["igraph (>=0.10.8)", "leidenalg (>=0.9.0)"]
+louvain = ["igraph", "louvain (>=0.8.2)", "setuptools (<81)"]
+magic = ["magic-impute (>=2.0.4)"]
 paga = ["igraph"]
 rapids = ["cudf (>=0.9)", "cugraph (>=0.9)", "cuml (>=0.9)"]
 scanorama = ["scanorama"]
 scrublet = ["scikit-image"]
-skmisc = ["scikit-misc (>=0.1.3)"]
-test = ["dask[array] (>=2022.09.2,<2024.8.0)", "igraph (>=0.10)", "leidenalg (>=0.9.0)", "profimp", "pytest (>=8.2)", "pytest-cov", "pytest-mock", "pytest-nunit", "scikit-image", "zarr"]
-test-full = ["dask-ml", "dask[array] (>=2022.09.2,<2024.8.0)", "harmonypy", "igraph", "igraph (>=0.10)", "leidenalg (>=0.9.0)", "louvain (>=0.6.0,!=0.6.2)", "magic-impute (>=2.0)", "profimp", "pytest (>=8.2)", "pytest-cov", "pytest-mock", "pytest-nunit", "scanorama", "scikit-image", "scikit-misc (>=0.1.3)", "zappy", "zarr"]
-test-min = ["profimp", "pytest (>=8.2)", "pytest-cov", "pytest-mock", "pytest-nunit"]
+skmisc = ["scikit-misc (>=0.1.4)"]
+test = ["anndata[dask]", "dask-ml", "dask[array] (>=2022.09.2)", "igraph", "igraph (>=0.10.8)", "leidenalg (>=0.9.0)", "louvain (>=0.8.2)", "pytest (>=8.2.2)", "pytest-cov", "pytest-mock", "pytest-randomly", "pytest-rerunfailures", "pytest-xdist[psutil]", "scikit-image", "scikit-misc (>=0.1.4)", "setuptools (<81)", "tuna", "zarr (<3)"]
+test-min = ["pytest (>=8.2.2)", "pytest-cov", "pytest-mock", "pytest-randomly", "pytest-rerunfailures", "pytest-xdist[psutil]", "tuna"]
 
 [[package]]
 name = "scikit-learn"
@@ -2873,20 +2872,23 @@ docs = ["ipykernel", "nbconvert", "numpydoc", "pydata_sphinx_theme (==0.10.0rc2)
 stats = ["scipy (>=1.7)", "statsmodels (>=0.12)"]
 
 [[package]]
-name = "session-info"
-version = "1.0.1"
-description = "session_info outputs version information for modules loaded in the current session, Python, and the OS."
+name = "session-info2"
+version = "0.2.3"
+description = "Print versions of imported packages."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.10"
 groups = ["main"]
 markers = "sys_platform == \"darwin\" or sys_platform == \"linux\""
 files = [
-    {file = "session_info-1.0.1-py3-none-any.whl", hash = "sha256:451d191e51816070b9f21a6ff3f6eb5d6015ae2738e8db63ac4e6398260a5838"},
-    {file = "session_info-1.0.1.tar.gz", hash = "sha256:d71950d5a8ce7f7f7d5e86aa208c148c4e50b5440b77d5544d422b48e4f3ed41"},
+    {file = "session_info2-0.2.3-py3-none-any.whl", hash = "sha256:f211d9930f73b485b727b6c4d8b964fa1b634351b3079393738f42be9b4c7f5e"},
+    {file = "session_info2-0.2.3.tar.gz", hash = "sha256:6d16e3c6bb72ea52e589da4d722d24798aa3511c34ab8446a131d655cba2e2c9"},
 ]
 
-[package.dependencies]
-stdlib_list = "*"
+[package.extras]
+docs = ["click (!=8.3)", "furo", "hatch", "ipywidgets", "myst-nb", "numpy", "session-info", "sphinx", "sphinx-autodoc-typehints", "sphinx-codeautolink"]
+jupyter = ["ipywidgets"]
+notebook = ["ipywidgets", "numpy", "session-info"]
+test = ["coverage[toml] (>=6.5)", "ipykernel", "jupyter-client", "pytest", "pytest-asyncio", "pytest-md", "pytest-subprocess", "testing-common-database"]
 
 [[package]]
 name = "six"
@@ -2974,26 +2976,6 @@ scipy = ">=1.8,<1.9.2 || >1.9.2"
 build = ["cython (>=3.0.10)"]
 develop = ["colorama", "cython (>=3.0.10)", "cython (>=3.0.10,<4)", "flake8", "isort", "jinja2", "joblib", "matplotlib (>=3)", "pytest (>=7.3.0,<8)", "pytest-cov", "pytest-randomly", "pytest-xdist", "pywinpty ; os_name == \"nt\"", "setuptools_scm[toml] (>=8.0,<9.0)"]
 docs = ["ipykernel", "jupyter_client", "matplotlib", "nbconvert", "nbformat", "numpydoc", "pandas-datareader", "sphinx"]
-
-[[package]]
-name = "stdlib-list"
-version = "0.11.1"
-description = "A list of Python Standard Libraries (2.7 through 3.13)."
-optional = false
-python-versions = ">=3.9"
-groups = ["main"]
-markers = "sys_platform == \"darwin\" or sys_platform == \"linux\""
-files = [
-    {file = "stdlib_list-0.11.1-py3-none-any.whl", hash = "sha256:9029ea5e3dfde8cd4294cfd4d1797be56a67fc4693c606181730148c3fd1da29"},
-    {file = "stdlib_list-0.11.1.tar.gz", hash = "sha256:95ebd1d73da9333bba03ccc097f5bac05e3aa03e6822a0c0290f87e1047f1857"},
-]
-
-[package.extras]
-dev = ["build", "stdlib-list[doc,lint,test]"]
-doc = ["furo", "sphinx"]
-lint = ["mypy", "ruff"]
-support = ["sphobjinv"]
-test = ["coverage[toml]", "pytest", "pytest-cov"]
 
 [[package]]
 name = "tenacity"
@@ -3233,4 +3215,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "3.12.7"
-content-hash = "bffbfa4733e00cf362f431347d4d976f787040123556bccdc47b12bcc1c7d54b"
+content-hash = "e1560081c1d930900b6abcd3e63ced1e2b63bcd82c48e1b0a99d7d554a9f6d44"
