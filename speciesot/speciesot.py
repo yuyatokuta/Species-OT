@@ -838,6 +838,15 @@ class SpeciesOT(Data):
                 columns=self.hvlabel[spe],
             )
 
+        # Convert to Pandas DataFrame
+        self.plot_normalized_log = {}
+        for spe in self.species:
+            self.plot_normalized_log[spe] = pd.DataFrame(
+                self.adata[spe].obsm["normalized_log"],
+                index=self.adata[spe].obs.index,
+                columns=self.adata[spe].var.index,
+            )
+
         return self
     
 

@@ -74,6 +74,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Chained-Processing">Chained Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Differential-expression-analysis-and-selection-of-Wnt-related-genes">Differential expression analysis and selection of Wnt-related genes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Discover-genes-differentially-expressed-between-the-AK02-and-AITS-culture-conditions">Discover genes differentially expressed between the AK02 and AITS culture conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Expression-levels-of-Wnt-related-genes">Expression levels of Wnt-related genes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#End-of-tutorial">End of tutorial</a></li>
 </ul>
 </li>
@@ -110,7 +115,7 @@
   <section id="Dataset-2">
 <h1>Dataset 2<a class="headerlink" href="#Dataset-2" title="Link to this heading"></a></h1>
 <ul class="simple">
-<li><p>Please extract dataset2.zip into the directory “data”</p></li>
+<li><p>Please extract data.zip into the directory “data”</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -135,9 +140,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">configure_platform</span><span class="p">()</span>
-<span class="c1"># configure_platform(&quot;gpu&quot;)</span>
-<span class="c1"># configure_platform(&quot;cpu&quot;)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">configure_platform</span><span class="p">()</span>  <span class="c1"># For macOS with Apple Silicon</span>
+<span class="c1"># configure_platform(&quot;gpu&quot;)  # For Linux or WSL2 with an NVIDIA GPU</span>
+<span class="c1"># configure_platform(&quot;cpu&quot;)  # For other platforms</span>
 </pre></div>
 </div>
 </div>
@@ -219,7 +224,7 @@ JAX is configured to use: METAL
         <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
         <span class="s2">&quot;original&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span> <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>  <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
         <span class="n">mask_option</span><span class="p">,</span>
         <span class="n">iterations</span><span class="p">,</span>
         <span class="n">threshold_eps</span><span class="p">,</span>
@@ -241,7 +246,7 @@ JAX is configured to use: METAL
         <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
         <span class="s2">&quot;original&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span> <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
+        <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>  <span class="c1"># &quot;min&quot; for exploring minimum converging varepsilon_min</span>
         <span class="n">mask_option</span><span class="p">,</span>
         <span class="n">iterations</span><span class="p">,</span>
         <span class="n">threshold_eps</span><span class="p">,</span>
@@ -296,22 +301,22 @@ JAX is configured to use: METAL
 <div class="highlight"><pre>
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 414ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 162ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 636ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 708ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 548ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 10s 766ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 211ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 622ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 9s 907ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 10s 795ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 117ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 299ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 </pre></div></div>
 </div>
 </section>
@@ -376,11 +381,11 @@ log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int6
 <div class="highlight"><pre>
 Platform &#39;METAL&#39; is experimental and not all JAX functionality may be correctly supported!
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-W0000 00:00:1761310795.485427 6890266 mps_client.cc:510] WARNING: JAX Apple GPU support is experimental and not all JAX functionality is correctly supported!
-I0000 00:00:1761310795.495887 6890266 service.cc:145] XLA service 0x3a4b22450 initialized for platform METAL (this does not guarantee that XLA will be used). Devices:
-I0000 00:00:1761310795.495894 6890266 service.cc:153]   StreamExecutor device (0): Metal, &lt;undefined&gt;
-I0000 00:00:1761310795.497055 6890266 mps_client.cc:406] Using Simple allocator.
-I0000 00:00:1761310795.497067 6890266 mps_client.cc:384] XLA backend will use up to 103078739968 bytes on device 0 for SimpleAllocator.
+W0000 00:00:1762787318.943704 2416463 mps_client.cc:510] WARNING: JAX Apple GPU support is experimental and not all JAX functionality is correctly supported!
+I0000 00:00:1762787318.954833 2416463 service.cc:145] XLA service 0x35624e1b0 initialized for platform METAL (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1762787318.954851 2416463 service.cc:153]   StreamExecutor device (0): Metal, &lt;undefined&gt;
+I0000 00:00:1762787318.956100 2416463 mps_client.cc:406] Using Simple allocator.
+I0000 00:00:1762787318.956111 2416463 mps_client.cc:384] XLA backend will use up to 103078739968 bytes on device 0 for SimpleAllocator.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -451,22 +456,22 @@ epsilon = 0.1000000 converged
 <div class="highlight"><pre>
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 200ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(16535), &#39;#non-significant genes&#39;: np.int64(15612), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(65), &#39;Elapsed time&#39;: &#39;0h 0m 8s 811ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 584ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15569), &#39;#non-significant genes&#39;: np.int64(12952), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(32), &#39;Elapsed time&#39;: &#39;0h 0m 1s 944ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 11s 529ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(15118), &#39;#non-significant genes&#39;: np.int64(14736), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(66), &#39;Elapsed time&#39;: &#39;0h 0m 12s 065ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 702ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14588), &#39;#non-significant genes&#39;: np.int64(14096), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(84), &#39;Elapsed time&#39;: &#39;0h 0m 9s 816ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 10s 077ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(14746), &#39;#non-significant genes&#39;: np.int64(11152), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(119), &#39;Elapsed time&#39;: &#39;0h 0m 10s 696ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 start RECODE for scRNA-seq data
 end RECODE for scRNA-seq
-log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 071ms&#39;, &#39;solver&#39;: &#39;full&#39;}
+log: {&#39;seq_target&#39;: &#39;RNA&#39;, &#39;#significant genes&#39;: np.int64(12010), &#39;#non-significant genes&#39;: np.int64(9099), &#39;#silent genes&#39;: np.int64(0), &#39;ell&#39;: np.int64(43), &#39;Elapsed time&#39;: &#39;0h 0m 2s 218ms&#39;, &#39;solver&#39;: &#39;full&#39;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -506,6 +511,229 @@ epsilon = 0.1000000 converged
 <img alt="_images/tutorial2_34_2.png" src="_images/tutorial2_34_2.png" />
 </div>
 </div>
+</section>
+<section id="Differential-expression-analysis-and-selection-of-Wnt-related-genes">
+<h2>Differential expression analysis and selection of Wnt-related genes<a class="headerlink" href="#Differential-expression-analysis-and-selection-of-Wnt-related-genes" title="Link to this heading"></a></h2>
+<section id="Discover-genes-differentially-expressed-between-the-AK02-and-AITS-culture-conditions">
+<h3>Discover genes differentially expressed between the AK02 and AITS culture conditions<a class="headerlink" href="#Discover-genes-differentially-expressed-between-the-AK02-and-AITS-culture-conditions" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ttest_ind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.multitest</span><span class="w"> </span><span class="kn">import</span> <span class="n">multipletests</span>
+
+<span class="c1"># Group by condition</span>
+<span class="n">spe_to_condition</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="s2">&quot;AK02&quot;</span><span class="p">,</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="s2">&quot;AK02&quot;</span><span class="p">,</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="s2">&quot;AITS&quot;</span><span class="p">,</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="s2">&quot;AITS&quot;</span><span class="p">,</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="s2">&quot;AITS&quot;</span><span class="p">,</span>
+    <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="s2">&quot;neither&quot;</span><span class="p">,</span>  <span class="c1"># excluded</span>
+<span class="p">}</span>
+
+<span class="n">condition_to_dfs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AK02&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;AITS&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="k">for</span> <span class="n">spe</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_normalized_log_select_preprocessed_masked</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="n">spe_to_condition</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">spe</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cond</span> <span class="ow">in</span> <span class="n">condition_to_dfs</span><span class="p">:</span>
+        <span class="n">condition_to_dfs</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">condition_to_dfs</span><span class="p">[</span><span class="s2">&quot;AK02&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">condition_to_dfs</span><span class="p">[</span><span class="s2">&quot;AITS&quot;</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing data for one or both conditions.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Concatenate and align</span>
+<span class="n">ak02_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">condition_to_dfs</span><span class="p">[</span><span class="s2">&quot;AK02&quot;</span><span class="p">])</span>
+<span class="n">aits_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">condition_to_dfs</span><span class="p">[</span><span class="s2">&quot;AITS&quot;</span><span class="p">])</span>
+<span class="n">common_genes</span> <span class="o">=</span> <span class="n">ak02_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">aits_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">ak02_df</span><span class="p">,</span> <span class="n">aits_df</span> <span class="o">=</span> <span class="n">ak02_df</span><span class="p">[</span><span class="n">common_genes</span><span class="p">],</span> <span class="n">aits_df</span><span class="p">[</span><span class="n">common_genes</span><span class="p">]</span>
+
+<span class="c1"># Statistics</span>
+<span class="n">pvals</span><span class="p">,</span> <span class="n">log2fc</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">common_genes</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ak02_df</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">aits_df</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">log2fc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">))</span>
+
+<span class="c1"># Multiple testing</span>
+<span class="n">padj</span> <span class="o">=</span> <span class="n">multipletests</span><span class="p">(</span><span class="n">pvals</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;fdr_bh&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Results</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;gene&quot;</span><span class="p">:</span> <span class="n">common_genes</span><span class="p">,</span> <span class="s2">&quot;log2FC&quot;</span><span class="p">:</span> <span class="n">log2fc</span><span class="p">,</span> <span class="s2">&quot;pval&quot;</span><span class="p">:</span> <span class="n">pvals</span><span class="p">,</span> <span class="s2">&quot;padj&quot;</span><span class="p">:</span> <span class="n">padj</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Significant genes</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;padj &lt; 0.05 and abs(log2FC) &gt; 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;padj&quot;</span><span class="p">)</span>
+<span class="n">genes_AK02</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;log2FC &gt; 1&quot;</span><span class="p">)[</span><span class="s2">&quot;gene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">genes_AITS</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;log2FC &lt; -1&quot;</span><span class="p">)[</span><span class="s2">&quot;gene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">results_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genes higher in AK02:&quot;</span><span class="p">,</span> <span class="n">genes_AK02</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genes higher in AITS:&quot;</span><span class="p">,</span> <span class="n">genes_AITS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gene</th>
+      <th>log2FC</th>
+      <th>pval</th>
+      <th>padj</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ADNP</td>
+      <td>0.044285</td>
+      <td>7.651345e-38</td>
+      <td>9.175330e-38</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ADNP2</td>
+      <td>0.043396</td>
+      <td>9.499142e-47</td>
+      <td>1.164218e-46</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AEBP1</td>
+      <td>-0.362036</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEBP2</td>
+      <td>0.076010</td>
+      <td>3.565237e-33</td>
+      <td>4.227611e-33</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AHCTF1</td>
+      <td>-0.230504</td>
+      <td>3.236920e-277</td>
+      <td>5.916623e-277</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Genes higher in AK02: [&#39;TCFL5&#39;, &#39;ZBTB37&#39;, &#39;ZBTB47&#39;, &#39;ZBTB8B&#39;, &#39;ZFP14&#39;, &#39;ZMAT4&#39;, &#39;ZNF138&#39;, &#39;ZNF165&#39;, &#39;ZNF202&#39;, &#39;ZNF25&#39;, &#39;ZNF251&#39;, &#39;ZBTB22&#39;, &#39;ZBTB20&#39;, &#39;ZBTB12&#39;, &#39;ZSCAN9&#39;, &#39;SNAI1&#39;, &#39;SOX21&#39;, &#39;SOX9&#39;, &#39;SP110&#39;, &#39;SREBF1&#39;, &#39;ZNF316&#39;, &#39;STAT6&#39;, &#39;ZXDC&#39;, &#39;TEF&#39;, &#39;TFEB&#39;, &#39;THAP8&#39;, &#39;TP73&#39;, &#39;TSHZ2&#39;, &#39;TSHZ3&#39;, &#39;ZNF333&#39;, &#39;ZNF337&#39;, &#39;ZNF692&#39;, &#39;ZNF71&#39;, &#39;ZNF726&#39;, &#39;ZNF764&#39;, &#39;ZNF771&#39;, &#39;ZNF778&#39;, &#39;ZNF688&#39;, &#39;ZNF784&#39;, &#39;ZNF793&#39;, &#39;ZNF823&#39;, &#39;ZSCAN30&#39;, &#39;ZNF844&#39;, &#39;ZNF880&#39;, &#39;ZNF883&#39;, &#39;ZNF786&#39;, &#39;ZNF599&#39;, &#39;ZNF589&#39;, &#39;ZNF385A&#39;, &#39;ZNF385B&#39;, &#39;ZNF397&#39;, &#39;ZNF417&#39;, &#39;ZNF449&#39;, &#39;ZSCAN31&#39;, &#39;ZNF500&#39;, &#39;ZNF514&#39;, &#39;ZNF524&#39;, &#39;ZNF546&#39;, &#39;ZNF563&#39;, &#39;ZNF573&#39;, &#39;ZNF585A&#39;, &#39;ZNF519&#39;, &#39;SIX3&#39;, &#39;SOX15&#39;, &#39;RORB&#39;, &#39;FBXL19&#39;, &#39;FEZF1&#39;, &#39;FOXI3&#39;, &#39;HIF3A&#39;, &#39;IRF2&#39;, &#39;IRF7&#39;, &#39;EMX1&#39;, &#39;ARNTL&#39;, &#39;BATF2&#39;, &#39;BCL6B&#39;, &#39;CASZ1&#39;, &#39;CC2D1A&#39;, &#39;CCDC17&#39;, &#39;CENPBD1&#39;, &#39;CSRNP3&#39;, &#39;CXXC4&#39;, &#39;DBP&#39;, &#39;DEAF1&#39;, &#39;ELF1&#39;, &#39;ELF3&#39;, &#39;ZNF891&#39;, &#39;NOTO&#39;, &#39;NR1D2&#39;, &#39;NR1H3&#39;, &#39;KLF15&#39;, &#39;POU3F1&#39;, &#39;POU5F2&#39;, &#39;PPARA&#39;, &#39;PURG&#39;, &#39;RARG&#39;, &#39;RORA&#39;, &#39;PBX2&#39;, &#39;NHLH1&#39;, &#39;NFATC4&#39;, &#39;LHX1&#39;, &#39;MAF&#39;, &#39;L3MBTL4&#39;, &#39;ZFP2&#39;, &#39;MLXIPL&#39;, &#39;MTERF2&#39;, &#39;MZF1&#39;, &#39;POU2F3&#39;, &#39;IRX1&#39;, &#39;PLAGL1&#39;, &#39;ZBED6&#39;, &#39;ZNF491&#39;, &#39;ZNF676&#39;, &#39;LHX5&#39;, &#39;MEF2C&#39;, &#39;ZNF662&#39;, &#39;SIX6&#39;, &#39;MAFA&#39;, &#39;ZNF843&#39;, &#39;NR4A2&#39;, &#39;PAX6&#39;, &#39;GLIS3&#39;, &#39;ESRRG&#39;, &#39;EMX2&#39;, &#39;LMX1A&#39;, &#39;SIX2&#39;, &#39;TBX3&#39;, &#39;NR2F2&#39;, &#39;VAX1&#39;]
+Genes higher in AITS: [&#39;ZEB1&#39;, &#39;ZIC4&#39;, &#39;ZNF132&#39;, &#39;ZNF208&#39;, &#39;ZNF215&#39;, &#39;ZNF229&#39;, &#39;ZNF239&#39;, &#39;SNAI2&#39;, &#39;SOX8&#39;, &#39;EGR3&#39;, &#39;TWIST1&#39;, &#39;TBX15&#39;, &#39;ZNF341&#39;, &#39;ZNF697&#39;, &#39;ZNF728&#39;, &#39;ZNF792&#39;, &#39;ZNF878&#39;, &#39;MESP2&#39;, &#39;ZNF596&#39;, &#39;ZNF516&#39;, &#39;ZNF548&#39;, &#39;ZNF559&#39;, &#39;ZNF569&#39;, &#39;ETV4&#39;, &#39;FOSL1&#39;, &#39;FOSL2&#39;, &#39;FOXP3&#39;, &#39;GBX2&#39;, &#39;ETV2&#39;, &#39;ZNF285&#39;, &#39;HES2&#39;, &#39;HES4&#39;, &#39;HEY1&#39;, &#39;HEY2&#39;, &#39;HIC1&#39;, &#39;HIVEP3&#39;, &#39;GTF2IRD2B&#39;, &#39;ETS1&#39;, &#39;ASCL2&#39;, &#39;BHLHE40&#39;, &#39;ZNF473&#39;, &#39;ZNF541&#39;, &#39;ELK3&#39;, &#39;CREB5&#39;, &#39;ZSCAN23&#39;, &#39;KLF16&#39;, &#39;NPAS2&#39;, &#39;NPAS3&#39;, &#39;NR5A2&#39;, &#39;OTX1&#39;, &#39;SP140&#39;, &#39;RFX4&#39;, &#39;NME2&#39;, &#39;LEF1&#39;, &#39;LHX2&#39;, &#39;ZNF257&#39;, &#39;KLF4&#39;, &#39;NFKB1&#39;, &#39;MAFF&#39;, &#39;MIXL1&#39;, &#39;NANOG&#39;, &#39;MECOM&#39;, &#39;KLF9&#39;, &#39;TFCP2L1&#39;, &#39;ZNF177&#39;, &#39;ARID5B&#39;, &#39;STAT4&#39;, &#39;DMBX1&#39;, &#39;IRF4&#39;, &#39;PAX5&#39;, &#39;GSC&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Expression-levels-of-Wnt-related-genes">
+<h3>Expression levels of Wnt-related genes<a class="headerlink" href="#Expression-levels-of-Wnt-related-genes" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">marker_genes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;CXXC4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PPARA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SIX3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SOX9&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SREBF1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RARG&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RORA&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Human iPSC</span><span class="se">\n</span><span class="s2">(AK02)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chimpanzee iPSC</span><span class="se">\n</span><span class="s2">(AK02)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Gorilla iPSC</span><span class="se">\n</span><span class="s2">(AITS)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Orangutan iPSC</span><span class="se">\n</span><span class="s2">(AITS)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Macaque ESC</span><span class="se">\n</span><span class="s2">(AITS)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mouse EpiLC&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Flatten</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">spe</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">species</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">marker_genes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_normalized_log</span><span class="p">[</span><span class="n">spe</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">spe_ot</span><span class="o">.</span><span class="n">plot_normalized_log</span><span class="p">[</span><span class="n">spe</span><span class="p">][</span><span class="n">g</span><span class="p">]:</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;Gene&quot;</span><span class="p">:</span> <span class="n">g</span><span class="p">,</span> <span class="s2">&quot;Species&quot;</span><span class="p">:</span> <span class="n">spe</span><span class="p">,</span> <span class="s2">&quot;Expression&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Z-score</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Expression&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Gene&quot;</span><span class="p">)[</span><span class="s2">&quot;Expression&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Gene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Gene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">it</span><span class="se">{{</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Expression&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Gene&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">,</span>
+    <span class="n">showcaps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">showfliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">gap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Expression levels of Wnt-related genes&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Z-score of log normalized expression&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial2_39_0.png" src="_images/tutorial2_39_0.png" />
+</div>
+</div>
+</section>
 </section>
 <section id="End-of-tutorial">
 <h2>End of tutorial<a class="headerlink" href="#End-of-tutorial" title="Link to this heading"></a></h2>
