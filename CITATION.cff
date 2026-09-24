@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use Species-OT in your research, please cite this software."
+title: "Species-OT"
+type: software
+
+authors:
+  - family-names: "Tokuda"
+    given-names: "Yuya"
+
+license: BSD-3-Clause
+
+repository-code: "https://github.com/yuyatokuta/Species-OT"
+url: "https://yuyatokuta.github.io/Species-OT/"
+
+abstract: >-
+  A software package for geometric inference of cross-species
+  transcriptome correspondence using Gromov-Wasserstein optimal transport.
+
+keywords:
+  - cross-species analysis
+  - Gromov-Wasserstein optimal transport
+  - gene correspondences
+  - transcriptome data
+  - bulk RNA-seq
+  - scRNA-seq
